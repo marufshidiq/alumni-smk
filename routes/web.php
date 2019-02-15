@@ -15,12 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/auth/newuser', function () {
-    return view('auth.new');
+Route::get('/auth', function () {
+    return redirect()->route('front.login.get');
 });
 
+Route::get('/auth/newuser', 'RegistrationController@newRegistration')->name('front.new.get');
+Route::get('/auth/login', 'RegistrationController@login')->name('front.login.get');
 Route::get('/auth/proceed/{token}', 'RegistrationController@proceedRegistration');
-
 Route::post('/auth/newuser', 'RegistrationController@sendNewRegistration')->name('front.new.post');
 
 Auth::routes();
