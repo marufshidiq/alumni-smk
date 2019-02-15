@@ -15,4 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/send', 'EmailController@send');
+Route::get('/auth/newuser', function () {
+    return view('auth.new');
+});
+
+Route::get('/auth/proceed/{token}', 'RegistrationController@proceedRegistration');
+
+Route::post('/auth/newuser', 'RegistrationController@sendNewRegistration')->name('front.new.post');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
