@@ -35,8 +35,10 @@ Route::get('/address', function () {
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::get('/first', 'HomeController@first')->name('first');
 Route::post('/address', 'HomeController@addressAddEdit')->name('address.addedit.form');
 Route::post('/address/save', 'HomeController@addressSave')->name('address.save');
+Route::post('/email/save', 'HomeController@emailSave')->name('email.save');
 Route::get('/profile/edit', 'HomeController@profileEdit')->name('profile.edit');
 Route::post('/profile/edit', 'HomeController@profileEditProcess')->name('profile.edit.post');
 

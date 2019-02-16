@@ -7,6 +7,7 @@ use Auth;
 use Laravolt\Indonesia\Indonesia;
 
 use App\Address;
+use App\Email;
 
 class HomeController extends Controller
 {
@@ -38,6 +39,18 @@ class HomeController extends Controller
     public function profileEdit()
     {
         return view('editprofile');
+    }
+
+    public function first()
+    {
+        $email = Email::where('email', Auth::user()->email)->count();
+        if($email == 0){
+            $user = Auth::user();
+            $user->emails()->create([
+                'email' => Auth::user()->email
+            ]);
+        }
+        return redirect()->route('dashboard');
     }
 
     public function profileEditProcess(Request $request)
@@ -110,6 +123,17 @@ class HomeController extends Controller
         return redirect()->route('profile.edit');
     }
 
+    public function emailSave(Request $request)
+    {
+        $user = Auth::user();
+        if($request->act == "add"){
+            $user->emails()->create([
+                'email' => $request->email
+            ]);
+        }
+        return redirect()->route('profile.edit');
+    }
+
     public function profilePrivacy($type, $id)
     {
         if($type == "address"){
@@ -130,6 +154,24 @@ class HomeController extends Controller
             ]);
             return redirect()->route('profile.edit');
         }
+        if($type == "email"){
+            $email = Email::find($id);
+            if($email['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+
+            if($email['privacy'] == "public"){
+                $privacy = "private";
+            }
+            else if($email['privacy'] == "private"){
+                $privacy = "public";
+            }            
+
+            $email->update([
+                "privacy" => $privacy
+            ]);
+            return redirect()->route('profile.edit');
+        }
     }
 
     public function profileDelete($type, $id)
@@ -140,6 +182,14 @@ class HomeController extends Controller
                 return "Error";
             }
             $address->delete();
+            return redirect()->route('profile.edit');
+        }
+        if($type == "email"){
+            $email = Email::find($id);
+            if($email['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+            $email->delete();
             return redirect()->route('profile.edit');
         }
     }

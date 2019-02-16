@@ -43,27 +43,39 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                        </div>
+                                        </div>                                        
+                                        @foreach(Auth::user()->emails as $email)
                                         <div class="form-group-inner">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                                    <label class="login2 pull-right pull-right-pro">Email <i class="fa fa-lock"></i></label>
+                                                    <label class="login2 pull-right pull-right-pro">Email {{$loop->iteration}} @if($email['privacy'] == "private")<i class="fa fa-lock"></i>@endif</label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="{{ Auth::user()->email }}" disabled>
+                                                        <input type="text" class="form-control" value="{{$email['email']}}" readonly>
                                                         <div class="input-group-btn custom-dropdowns-button">
                                                             <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">Action <span class="caret"></span>
                                                                 </button>
-                                                            <ul class="dropdown-menu pull-right">
-                                                                <li><a href="#">Private</a>
-                                                                </li>                                                                    
-                                                            </ul>
+                                                            <ul class="dropdown-menu pull-right">                                                                
+                                                                <li><a href="{{route('profile.privacy', ['type'=>'email','id'=>$email['id']])}}">
+                                                                @if($email['privacy'] == "private")
+                                                                Public
+                                                                @else
+                                                                Private
+                                                                @endif
+                                                                </a>
+                                                                </li>
+                                                                @if($email['email'] != Auth::user()->email)
+                                                                <li><a href="{{route('profile.delete', ['type'=>'email','id'=>$email['id']])}}">Hapus</a>
+                                                                </li>                                     
+                                                                @endif                               
+                                                            </ul>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>   
+                                        @endforeach
                                         @foreach(Auth::user()->addresses as $address)
                                         <div class="form-group-inner">
                                             <div class="row">
@@ -106,7 +118,7 @@
                             </div>
                         </div>
                         <br>
-                        <a class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Tambahkan Email</a>
+                        <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#zoomInDown1"><i class="fa fa-envelope"></i> Tambahkan Email</a>
                         <a class="btn btn-sm btn-success"><i class="fa fa-phone"></i> Tambahkan Kontak</a>                        
                         <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('add-address').submit();"><i class="fa fa-home"></i> Tambahkan Alamat</a>
                         <a class="btn btn-sm btn-success"><i class="fa fa-globe"></i> Tambahkan Media Sosial</a>
@@ -117,6 +129,51 @@
                         <br>
                         <br>
                         <i class="fa fa-lock" ></i>&nbsp;&nbsp;Informasi hanya akan ditampilkan pada orang yang telah anda berikan akses (private)
+                        <!-- <div class="modal-bootstrap modal-login-form">
+                            <a class="zoomInDown mg-t" href="#" data-toggle="modal" data-target="#zoomInDown1">Modal Login Form</a>
+                        </div> -->
+                        <div id="zoomInDown1" class="modal modal-edu-general modal-zoomInDown fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">                                    
+                                    <div class="modal-body">
+                                        <div class="modal-login-form-inner">                                            
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="basic-login-inner modal-basic-inner">
+                                                        <h5>Email Baru</h5>
+                                                        <p>Masukkan informasi alamat email anda</p>
+                                                        <form action="{{route('email.save')}}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <input type="hidden" name="act" value="add">
+                                                            <div class="form-group-inner">
+                                                                <div class="row">
+                                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                                                        <label class="login2">Email</label>
+                                                                    </div>
+                                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                                                        <input type="email" name="email" class="form-control" placeholder="Masukkan Email" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                        
+                                                            <div class="login-btn-inner">                                                                
+                                                                <div class="row">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                                                        <div class="login-horizental">
+                                                                            <button class="btn btn-sm btn-primary login-submit-cs" type="submit">Simpan</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
