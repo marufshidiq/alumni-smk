@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ContactNumber extends Model
 {
     protected $fillable = [
-        'number', 'privacy'
+        'number', 'privacy', 'whatsapp'
     ];
 }

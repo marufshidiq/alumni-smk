@@ -203,6 +203,24 @@ class HomeController extends Controller
             ]);
             return redirect()->route('profile.edit');
         }
+        if($type == "whatsapp"){
+            $contact = ContactNumber::find($id);
+            if($contact['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+
+            if($contact['whatsapp'] == 1){
+                $whatsapp = 0;
+            }
+            else if($contact['whatsapp'] == 0){
+                $whatsapp = 1;
+            }            
+
+            $contact->update([
+                "whatsapp" => $whatsapp
+            ]);
+            return redirect()->route('profile.edit');
+        }
     }
 
     public function profileDelete($type, $id)

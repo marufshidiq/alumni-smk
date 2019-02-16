@@ -80,7 +80,7 @@
                                         <div class="form-group-inner">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                                    <label class="login2 pull-right pull-right-pro">Kontak {{$loop->iteration}} @if($contact['privacy'] == "private")<i class="fa fa-lock"></i>@endif</label>
+                                                    <label class="login2 pull-right pull-right-pro">Kontak {{$loop->iteration}} @if($contact['whatsapp'])<i class="fa fa-whatsapp"></i>@endif @if($contact['privacy'] == "private")<i class="fa fa-lock"></i>@endif</label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="input-group">
@@ -94,6 +94,14 @@
                                                                 Public
                                                                 @else
                                                                 Private
+                                                                @endif
+                                                                </a>
+                                                                </li>
+                                                                <li><a href="{{route('profile.privacy', ['type'=>'whatsapp','id'=>$contact['id']])}}">
+                                                                @if($contact['whatsapp'])
+                                                                Nonaktifkan WA
+                                                                @else
+                                                                Aktifkan WA
                                                                 @endif
                                                                 </a>
                                                                 </li>
@@ -158,7 +166,9 @@
                         </form>
                         <br>
                         <br>
-                        <i class="fa fa-lock" ></i>&nbsp;&nbsp;Informasi hanya akan ditampilkan pada orang yang telah anda berikan akses (private)                        
+                        <i class="fa fa-lock" ></i>&nbsp;&nbsp;&nbsp;Informasi hanya akan ditampilkan pada orang yang telah anda berikan akses (private)
+                        <br>
+                        <i class="fa fa-whatsapp" ></i>&nbsp;&nbsp;Menginformasikan bahwa pada nomor kontak tersebut dapat dihubungi melalui WhatsApp
                         <div id="newEmailModal" class="modal modal-edu-general modal-zoomInDown fade" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">                                    
