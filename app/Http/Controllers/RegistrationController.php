@@ -53,7 +53,7 @@ class RegistrationController extends Controller
             return response (['status' => false,'errors' => $e->getMessage()]);
         }
 
-        $return = "Proses pendaftaran Berhasil, silahkan buka email anda untuk melanjutkan proses selanjutnya";
+        $return = "Proses pendaftaran Berhasil, silahkan buka email anda untuk melanjutkan proses selanjutnya. Apabila tidak dapat menemukan email verifikasi, periksa folder Spam";
         return redirect()->route('front.new.post')->with('status', $return);
     }
 
