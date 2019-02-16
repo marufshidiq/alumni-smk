@@ -76,6 +76,36 @@
                                             </div>
                                         </div>   
                                         @endforeach
+                                        @foreach(Auth::user()->contactNumbers as $contact)
+                                        <div class="form-group-inner">
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                                                    <label class="login2 pull-right pull-right-pro">Kontak {{$loop->iteration}} @if($contact['privacy'] == "private")<i class="fa fa-lock"></i>@endif</label>
+                                                </div>
+                                                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" value="{{$contact['number']}}" readonly>
+                                                        <div class="input-group-btn custom-dropdowns-button">
+                                                            <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">Action <span class="caret"></span>
+                                                                </button>
+                                                            <ul class="dropdown-menu pull-right">                                                                
+                                                                <li><a href="{{route('profile.privacy', ['type'=>'contact','id'=>$contact['id']])}}">
+                                                                @if($contact['privacy'] == "private")
+                                                                Public
+                                                                @else
+                                                                Private
+                                                                @endif
+                                                                </a>
+                                                                </li>
+                                                                <li><a onclick="return confirm('Apakah anda yakin ingin menghapus kontak ini?')" href="{{route('profile.delete', ['type'=>'contact','id'=>$contact['id']])}}">Hapus</a>
+                                                                </li>                                     
+                                                            </ul>                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>   
+                                        @endforeach
                                         @foreach(Auth::user()->addresses as $address)
                                         <div class="form-group-inner">
                                             <div class="row">
@@ -118,8 +148,8 @@
                             </div>
                         </div>
                         <br>
-                        <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#zoomInDown1"><i class="fa fa-envelope"></i> Tambahkan Email</a>
-                        <a class="btn btn-sm btn-success"><i class="fa fa-phone"></i> Tambahkan Kontak</a>                        
+                        <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newEmailModal"><i class="fa fa-envelope"></i> Tambahkan Email</a>
+                        <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newContactModal"><i class="fa fa-phone"></i> Tambahkan Kontak</a>                        
                         <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('add-address').submit();"><i class="fa fa-home"></i> Tambahkan Alamat</a>
                         <a class="btn btn-sm btn-success"><i class="fa fa-globe"></i> Tambahkan Media Sosial</a>
                         <form id="add-address" action="{{route('address.addedit.form')}}" method="POST">
@@ -128,11 +158,8 @@
                         </form>
                         <br>
                         <br>
-                        <i class="fa fa-lock" ></i>&nbsp;&nbsp;Informasi hanya akan ditampilkan pada orang yang telah anda berikan akses (private)
-                        <!-- <div class="modal-bootstrap modal-login-form">
-                            <a class="zoomInDown mg-t" href="#" data-toggle="modal" data-target="#zoomInDown1">Modal Login Form</a>
-                        </div> -->
-                        <div id="zoomInDown1" class="modal modal-edu-general modal-zoomInDown fade" role="dialog">
+                        <i class="fa fa-lock" ></i>&nbsp;&nbsp;Informasi hanya akan ditampilkan pada orang yang telah anda berikan akses (private)                        
+                        <div id="newEmailModal" class="modal modal-edu-general modal-zoomInDown fade" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">                                    
                                     <div class="modal-body">
@@ -155,6 +182,49 @@
                                                                     </div>
                                                                 </div>
                                                             </div>                                                        
+                                                            <div class="login-btn-inner">                                                                
+                                                                <div class="row">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                                                        <div class="login-horizental">
+                                                                            <button class="btn btn-sm btn-primary login-submit-cs" type="submit">Simpan</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="newContactModal" class="modal modal-edu-general modal-zoomInDown fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">                                    
+                                    <div class="modal-body">
+                                        <div class="modal-login-form-inner">                                            
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="basic-login-inner modal-basic-inner">
+                                                        <h5>Nomor Kontak Baru</h5>
+                                                        <p>Masukkan informasi nomor kontak anda</p>
+                                                        <form action="{{route('contact.save')}}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <input type="hidden" name="act" value="add">
+                                                            <div class="form-group-inner">
+                                                                <div class="row">
+                                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                                                        <label class="login2">Nomor</label>
+                                                                    </div>
+                                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                                                        <input type="tel" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" name="number" class="form-control" placeholder="Masukkan nomor telefon rumah atau nomor telefon genggam" required/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>                                                        
+                                                            <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Masukkan nomor tanpa tanda +
                                                             <div class="login-btn-inner">                                                                
                                                                 <div class="row">
                                                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>

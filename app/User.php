@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Email');
     }
+
+    public function contactNumbers()
+    {
+        return $this->hasMany('App\ContactNumber');
+    }
 }

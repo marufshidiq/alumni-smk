@@ -8,6 +8,7 @@ use Laravolt\Indonesia\Indonesia;
 
 use App\Address;
 use App\Email;
+use App\ContactNumber;
 
 class HomeController extends Controller
 {
@@ -47,7 +48,8 @@ class HomeController extends Controller
         if($email == 0){
             $user = Auth::user();
             $user->emails()->create([
-                'email' => Auth::user()->email
+                'email' => Auth::user()->email,
+                'privacy' => "private"
             ]);
         }
         return redirect()->route('dashboard');
@@ -134,6 +136,17 @@ class HomeController extends Controller
         return redirect()->route('profile.edit');
     }
 
+    public function contactSave(Request $request)
+    {
+        $user = Auth::user();
+        if($request->act == "add"){
+            $user->contactNumbers()->create([
+                'number' => $request->number
+            ]);
+        }
+        return redirect()->route('profile.edit');
+    }
+
     public function profilePrivacy($type, $id)
     {
         if($type == "address"){
@@ -172,6 +185,24 @@ class HomeController extends Controller
             ]);
             return redirect()->route('profile.edit');
         }
+        if($type == "contact"){
+            $contact = ContactNumber::find($id);
+            if($contact['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+
+            if($contact['privacy'] == "public"){
+                $privacy = "private";
+            }
+            else if($contact['privacy'] == "private"){
+                $privacy = "public";
+            }            
+
+            $contact->update([
+                "privacy" => $privacy
+            ]);
+            return redirect()->route('profile.edit');
+        }
     }
 
     public function profileDelete($type, $id)
@@ -190,6 +221,14 @@ class HomeController extends Controller
                 return "Error";
             }
             $email->delete();
+            return redirect()->route('profile.edit');
+        }
+        if($type == "contact"){
+            $contact = ContactNumber::find($id);
+            if($contact['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+            $contact->delete();
             return redirect()->route('profile.edit');
         }
     }
