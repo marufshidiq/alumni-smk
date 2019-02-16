@@ -66,7 +66,7 @@
                                                                 </a>
                                                                 </li>
                                                                 @if($email['email'] != Auth::user()->email)
-                                                                <li><a href="{{route('profile.delete', ['type'=>'email','id'=>$email['id']])}}">Hapus</a>
+                                                                <li><a onclick="return confirm('Apakah anda yakin ingin menghapus email ini?')" href="{{route('profile.delete', ['type'=>'email','id'=>$email['id']])}}">Hapus</a>
                                                                 </li>                                     
                                                                 @endif                               
                                                             </ul>                                                            
@@ -84,7 +84,7 @@
                                                 </div>
                                                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="{{$address['address']}}" readonly>
+                                                        <input type="text" class="form-control" value="{{$address['address']}} | {{$address->districtDetails['name']}}, {{$address->cityDetails['name']}}, {{$address->provinceDetails['name']}}" readonly>
                                                         <div class="input-group-btn custom-dropdowns-button">
                                                             <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">Action <span class="caret"></span>
                                                                 </button>
@@ -99,7 +99,7 @@
                                                                 @endif
                                                                 </a>
                                                                 </li>
-                                                                <li><a href="{{route('profile.delete', ['type'=>'address','id'=>$address['id']])}}">Hapus</a>
+                                                                <li><a onclick="return confirm('Apakah anda yakin ingin menghapus alamat ini?')" href="{{route('profile.delete', ['type'=>'address','id'=>$address['id']])}}">Hapus</a>
                                                                 </li>                                                                    
                                                             </ul>
                                                             <form id="edit-address-{{$loop->iteration}}" action="{{route('address.addedit.form')}}" method="POST">
@@ -151,7 +151,7 @@
                                                                         <label class="login2">Email</label>
                                                                     </div>
                                                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                                        <input type="email" name="email" class="form-control" placeholder="Masukkan Email" />
+                                                                        <input type="email" name="email" class="form-control" placeholder="Masukkan Email" required/>
                                                                     </div>
                                                                 </div>
                                                             </div>                                                        
