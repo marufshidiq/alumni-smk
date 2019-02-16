@@ -31,3 +31,6 @@ Route::get('/login', function () {
 });
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::get('/profile/edit', 'HomeController@profileEdit')->name('profile.edit');
+Route::post('/profile/edit', 'HomeController@profileEditProcess')->name('profile.edit.post');

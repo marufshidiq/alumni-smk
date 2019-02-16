@@ -59,6 +59,7 @@
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="/main/css/responsive.css">
+    @yield('css')
     <!-- modernizr JS
 		============================================ -->
     <script src="/main/js/vendor/modernizr-2.8.3.min.js"></script>
@@ -675,13 +676,7 @@
 		============================================ -->
     <script src="/main/js/metisMenu/metisMenu.min.js"></script>
     <script src="/main/js/metisMenu/metisMenu-active.js"></script>
-    <!-- morrisjs JS
-		============================================ -->
-    <script src="/main/js/morrisjs/raphael-min.js"></script>
-    <script src="/main/js/morrisjs/morris.js"></script>
-    <script src="/main/js/morrisjs/morris-active.js"></script>
-    <!-- morrisjs JS
-		============================================ -->
+    
     <script src="/main/js/sparkline/jquery.sparkline.min.js"></script>
     <script src="/main/js/sparkline/jquery.charts-sparkline.js"></script>
     <script src="/main/js/sparkline/sparkline-active.js"></script>
@@ -695,7 +690,8 @@
     <script src="/main/js/plugins.js"></script>
     <!-- main JS
 		============================================ -->
-    <script src="/main/js/main.js"></script>    
+    <script src="/main/js/main.js"></script>
+    @yield('js')    
 </body>
 
 </html>

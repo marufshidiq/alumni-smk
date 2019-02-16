@@ -124,3 +124,13 @@
 </div>
 
 @endsection
+
+@section('js')
+<!-- morrisjs JS
+============================================ -->
+<script src="/main/js/morrisjs/raphael-min.js"></script>
+<script src="/main/js/morrisjs/morris.js"></script>
+<script src="/main/js/morrisjs/morris-active.js"></script>
+<!-- morrisjs JS
+============================================ -->
+@endsection
