@@ -26,5 +26,8 @@ Route::post('register', 'Auth\RegisterController@register')->name('register');
 Route::get('/register', function () {
     return redirect()->route('front.new.get');
 });
+Route::get('/login', function () {
+    return redirect()->route('front.login.get');
+});
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
