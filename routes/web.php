@@ -29,8 +29,16 @@ Route::get('/register', function () {
 Route::get('/login', function () {
     return redirect()->route('front.login.get');
 });
+Route::get('/address', function () {
+    return redirect()->route('profile');
+});
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::post('/address', 'HomeController@addressAddEdit')->name('address.addedit.form');
+Route::post('/address/save', 'HomeController@addressSave')->name('address.save');
 Route::get('/profile/edit', 'HomeController@profileEdit')->name('profile.edit');
 Route::post('/profile/edit', 'HomeController@profileEditProcess')->name('profile.edit.post');
+
+Route::get('/profile/privacy/{type}/{id}', 'HomeController@profilePrivacy')->name('profile.privacy');
+Route::get('/profile/delete/{type}/{id}', 'HomeController@profileDelete')->name('profile.delete');

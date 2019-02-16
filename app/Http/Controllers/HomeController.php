@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Laravolt\Indonesia\Indonesia;
+
+use App\Address;
 
 class HomeController extends Controller
 {
@@ -48,5 +51,96 @@ class HomeController extends Controller
             return redirect()->back();
         }
         return $request;
+    }
+
+    public function addressAddEdit(Request $request)
+    {
+        $act = $request->act;
+        if($act == "add"){
+            $detail['header'] = "Tambah alamat";
+            $detail['id'] = 0;
+        }
+        else {
+            $detail['header'] = "Ubah alamat";
+            $id = $request->id;
+            $detail['id'] = $id;
+            $address = Address::find($id);
+            if($address['user_id'] != Auth::user()->id){
+                return;
+            }
+            $detail['address'] = $address['address'];
+            $detail['province'] = $address['province'];
+            $detail['city'] = $address['city'];
+            $detail['district'] = $address['district'];
+
+            $cities = \Indonesia::findProvince($address['province'], ['cities']);
+            $detail['city-list'] = $cities['cities'];
+            
+            $district = \Indonesia::findCity($address['city'], ['districts']);
+            $detail['district-list'] = $cities['districts'];
+        }
+        $province = \Indonesia::allProvinces();
+        $detail['act'] = $act;
+        return view('addeditaddress', compact('detail', 'province'));        
+    }
+
+    public function addressSave(Request $request)
+    {
+        $user = Auth::user();
+        if($request->act == "add"){
+            $user->addresses()->create([
+                'address' => $request->address,
+                'province' => $request->province,
+                'city' => $request->city,
+                'district' => $request->district
+            ]);
+        }
+        else if($request->act == "edit"){
+            $address = Address::find($request->id);
+            if($address['user_id'] != Auth::user()->id){
+                return;
+            }
+            $address->update([
+                'address' => $request->address,
+                'province' => $request->province,
+                'city' => $request->city,
+                'district' => $request->district
+            ]);
+        }
+        return redirect()->route('profile.edit');
+    }
+
+    public function profilePrivacy($type, $id)
+    {
+        if($type == "address"){
+            $address = Address::find($id);
+            if($address['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+
+            if($address['privacy'] == "public"){
+                $privacy = "private";
+            }
+            else if($address['privacy'] == "private"){
+                $privacy = "public";
+            }            
+
+            $address->update([
+                "privacy" => $privacy
+            ]);
+            return redirect()->route('profile.edit');
+        }
+    }
+
+    public function profileDelete($type, $id)
+    {
+        if($type == "address"){
+            $address = Address::find($id);
+            if($address['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+            $address->delete();
+            return redirect()->route('profile.edit');
+        }
     }
 }

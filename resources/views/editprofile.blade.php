@@ -8,7 +8,7 @@
                 <div class="sparkline12-list">
                     <div class="sparkline12-hd">
                         <div class="main-sparkline12-hd">
-                            <h1>Edit Profil</h1>
+                            <h1>Edit Profil</h1>                            
                         </div>
                     </div>
                     <div class="sparkline12-graph">
@@ -47,7 +47,7 @@
                                         <div class="form-group-inner">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                                    <label class="login2 pull-right pull-right-pro">Email <i class="fa fa-lock" title="Hanya akan ditampilkan pada orang yang telah diberi akses"></i></label>
+                                                    <label class="login2 pull-right pull-right-pro">Email <i class="fa fa-lock"></i></label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="input-group">
@@ -64,32 +64,59 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @foreach(Auth::user()->addresses as $address)
                                         <div class="form-group-inner">
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                                    <label class="login2 pull-right pull-right-pro">Alamat <i class="fa fa-lock"></i></label>
+                                                    <label class="login2 pull-right pull-right-pro">Alamat {{$loop->iteration}} @if($address['privacy'] == "private")<i class="fa fa-lock"></i>@endif</label>
                                                 </div>
                                                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" value="E104, catn-2, Chandlodia Ahmedabad Gujarat, UK." disabled>
+                                                        <input type="text" class="form-control" value="{{$address['address']}}" readonly>
                                                         <div class="input-group-btn custom-dropdowns-button">
                                                             <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false">Action <span class="caret"></span>
                                                                 </button>
                                                             <ul class="dropdown-menu pull-right">
-                                                                <li><a href="#">Ubah</a>
+                                                                <li><a onclick="event.preventDefault();document.getElementById('edit-address-{{$loop->iteration}}').submit();">Ubah</a>
                                                                 </li> 
-                                                                <li><a href="#">Private</a>
+                                                                <li><a href="{{route('profile.privacy', ['type'=>'address','id'=>$address['id']])}}">
+                                                                @if($address['privacy'] == "private")
+                                                                Public
+                                                                @else
+                                                                Private
+                                                                @endif
+                                                                </a>
+                                                                </li>
+                                                                <li><a href="{{route('profile.delete', ['type'=>'address','id'=>$address['id']])}}">Hapus</a>
                                                                 </li>                                                                    
                                                             </ul>
+                                                            <form id="edit-address-{{$loop->iteration}}" action="{{route('address.addedit.form')}}" method="POST">
+                                                            <input type="hidden" name="act" value="edit">
+                                                            <input type="hidden" name="id" value="{{$address['id']}}">
+                                                            {{ csrf_field() }}
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                         
+                                        </div>   
+                                        @endforeach                                      
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <br>
+                        <a class="btn btn-sm btn-success"><i class="fa fa-envelope"></i> Tambahkan Email</a>
+                        <a class="btn btn-sm btn-success"><i class="fa fa-phone"></i> Tambahkan Kontak</a>                        
+                        <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('add-address').submit();"><i class="fa fa-home"></i> Tambahkan Alamat</a>
+                        <a class="btn btn-sm btn-success"><i class="fa fa-globe"></i> Tambahkan Media Sosial</a>
+                        <form id="add-address" action="{{route('address.addedit.form')}}" method="POST">
+                        <input type="hidden" name="act" value="add">
+                        {{ csrf_field() }}
+                        </form>
+                        <br>
+                        <br>
+                        <i class="fa fa-lock" ></i>&nbsp;&nbsp;Informasi hanya akan ditampilkan pada orang yang telah anda berikan akses (private)
                     </div>
                 </div>
             </div>
