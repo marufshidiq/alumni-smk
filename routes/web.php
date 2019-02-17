@@ -46,3 +46,4 @@ Route::post('/profile/edit', 'HomeController@profileEditProcess')->name('profile
 
 Route::get('/profile/privacy/{type}/{id}', 'HomeController@profilePrivacy')->name('profile.privacy');
 Route::get('/profile/delete/{type}/{id}', 'HomeController@profileDelete')->name('profile.delete');
+Route::get('/profile/{slug}', 'HomeController@showProfile')->name('show.profile');

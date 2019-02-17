@@ -14,28 +14,49 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="address-hr">
-                                    <p><b>Nama</b><br />{{ Auth::user()->name }}</p>
+                                    <p>
+                                        <b>Nama</b>
+                                        <br />{{ $profile['name'] }}
+                                    </p>
                                 </div>
                             </div>                            
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="address-hr">
-                                    <p><b>Email</b><br />{{ Auth::user()->email }}</p>
+                                    <p>
+                                        <b>Email</b>
+                                        @foreach($profile['email'] as $email)
+                                        <br />{{$email['email']}}
+                                        @endforeach
+                                    </p>
                                 </div>
                             </div>                            
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="address-hr">
-                                    <p><b>Kontak</b><br />085740101829</p>
+                                    <p>
+                                        <b>Kontak</b>
+                                        @foreach($profile['phone'] as $phone)
+                                        <br />@if($phone['whatsapp'])<i class="fa fa-whatsapp"></i>@endif {{$phone['phone']}} 
+                                        @endforeach
+                                    </p>
                                 </div>
                             </div>                            
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="address-hr">
-                                    <p><b>Alamat</b><br /> E104, catn-2, Chandlodia Ahmedabad Gujarat, UK.</p>
+                                    <p>
+                                        <b>Alamat</b>                                        
+                                        @foreach($profile['address'] as $address)
+                                        <br /><i class="fa fa-home"></i> {{$address['address1']}}
+                                        @if($address['privacy'] != "private")
+                                        <br />{{$address['address2']}} 
+                                        @endif
+                                        @endforeach
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -46,26 +67,18 @@
                                 </div>
                             </div>
                         </div>
+                        @foreach(array_chunk($profile["socialmedia"], 3) as $chunk)
                         <div class="row">
+                            @foreach($chunk as $sm)
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="address-hr">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <h3>500</h3>
+                                    <a href="{{$sm['link']}}"><i class="{{$sm['icon']}}"></i></a> 
+                                    <h6>{{$sm['username']}}</h6>                                   
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="address-hr">
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <h3>900</h3>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="address-hr">
-                                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                    <h3>600</h3>
-                                </div>
-                            </div>
+                            </div> 
+                            @endforeach
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

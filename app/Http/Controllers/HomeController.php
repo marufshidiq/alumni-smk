@@ -10,6 +10,7 @@ use App\Address;
 use App\Email;
 use App\ContactNumber;
 use App\SocialMedia;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -35,7 +36,7 @@ class HomeController extends Controller
 
     public function profile()
     {
-        return view('profile');
+        return redirect()->route('show.profile', ['slug' => Auth::user()->slug]);
     }
 
     public function profileEdit()
@@ -288,5 +289,130 @@ class HomeController extends Controller
             $sm->delete();
             return redirect()->route('profile.edit');
         }
+    }
+
+    public function showProfile($slug)
+    {
+        $user = User::where('slug', $slug);
+        if($user->count() != 1){
+            return redirect()->route('dashboard');
+        }
+
+        $user = $user->first();
+
+        $profile["name"] = $user['name'];
+
+        $emailArray = array();
+        foreach($user->emails as $obj){
+            if($obj['privacy'] == "private"){
+                $email = array(
+                    'privacy' => "private",
+                    'email' => $this->hideProfile("email", $obj['email'])
+                );
+            }
+            else {
+                $email = array(
+                    'privacy' => "public",
+                    'email' => $obj['email']
+                );
+            }
+            array_push($emailArray, $email);
+        }
+        $profile["email"] = $emailArray;
+
+        $phoneArray = array();
+        foreach($user->contactNumbers as $obj){
+            if($obj['privacy'] == "private"){
+                $phone = array(
+                    'privacy' => "private",
+                    'whatsapp' => $obj['whatsapp'],
+                    'phone' => $this->hideProfile("phone", $obj['number'])
+                );
+            }
+            else {
+                $phone = array(
+                    'privacy' => "public",
+                    'whatsapp' => $obj['whatsapp'],
+                    'phone' => $obj['number']
+                );
+            }
+            array_push($phoneArray, $phone);
+        }
+        $profile["phone"] = $phoneArray;
+
+        $addressArray = array();
+        foreach($user->addresses as $obj){
+            if($obj['privacy'] == "private"){
+                $address = array(
+                    'privacy' => "private",
+                    'address1' => $this->convertToAsterisk($obj['address'], 5),
+                    'address2' => ""
+                );
+            }
+            else {
+                $address = array(
+                    'privacy' => "public",
+                    'address1' => $obj['address'],
+                    'address2' => $obj->districtDetails['name'].", ".$obj->cityDetails['name'].", ".$obj->provinceDetails['name']
+                );
+            }
+            array_push($addressArray, $address);
+        }
+        $profile["address"] = $addressArray;
+
+        $socialMediaArray = array();
+        foreach($user->socialMedia as $obj){
+            if($obj['privacy'] == "private"){
+                $socialmedia = array(
+                    'privacy' => "private",
+                    'username' => "***",
+                    'link' => "#"
+                );
+            }
+            else {
+                $socialmedia = array(
+                    'privacy' => "public",
+                    'username' => $obj['username'],
+                    'link' => $obj->link()
+                );
+            }
+            $socialmedia['icon'] = $obj->details['icon'];
+
+            array_push($socialMediaArray, $socialmedia);
+        }
+        $profile["socialmedia"] = $socialMediaArray;
+
+        return view('profile', compact('profile'));
+    }
+
+    public function hideProfile($type, $content)
+    {
+        if($type == "email"){
+            $part = explode("@", $content);
+            $email = $this->convertToAsterisk($part[0], 3);
+            $email .= "@";            
+            $email .= $this->convertToAsterisk($part[1], 1, 3);
+            return $email;
+        }
+        if($type == "phone"){
+            return $this->convertToAsterisk($content, 3);
+        }
+
+        return $content;
+    }
+
+    public function convertToAsterisk($content, $prefix = 0, $suffix = 0)
+    {
+        $length = strlen($content);
+        $asterisk = "";
+        for($i=0;$i<=$length-$prefix-$suffix;$i++){
+            $asterisk .= "*";
+        }
+        $return = "";        
+        $return .= substr($content, 0, $prefix);
+        $return .= $asterisk;
+        $return .= substr($content, -1*$suffix, $suffix);
+
+        return $return;
     }
 }
