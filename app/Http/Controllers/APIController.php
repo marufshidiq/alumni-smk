@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Laravolt\Indonesia\Indonesia;
+use App\SocialMediaList;
 
 class APIController extends Controller
 {
@@ -18,5 +19,11 @@ class APIController extends Controller
             return $district;
         }
         return "Oke";
+    }
+
+    public function mediaDetail(Request $request)
+    {
+        $sm = SocialMediaList::find($request->id);
+        return $sm;
     }
 }
