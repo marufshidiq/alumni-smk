@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\ContactNumber');
     }
+
+    public function socialMedia()
+    {
+        return $this->hasMany('App\SocialMedia');
+    }
 }

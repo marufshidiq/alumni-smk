@@ -9,6 +9,7 @@ use Laravolt\Indonesia\Indonesia;
 use App\Address;
 use App\Email;
 use App\ContactNumber;
+use App\SocialMedia;
 
 class HomeController extends Controller
 {
@@ -147,6 +148,18 @@ class HomeController extends Controller
         return redirect()->route('profile.edit');
     }
 
+    public function socialMediaSave(Request $request)
+    {
+        $user = Auth::user();
+        if($request->act == "add"){
+            $user->socialMedia()->create([
+                'media' => $request->media,
+                'username' => $request->username
+            ]);
+        }
+        return redirect()->route('profile.edit');
+    }    
+
     public function profilePrivacy($type, $id)
     {
         if($type == "address"){
@@ -221,6 +234,24 @@ class HomeController extends Controller
             ]);
             return redirect()->route('profile.edit');
         }
+        if($type == "socialmedia"){
+            $sm = SocialMedia::find($id);
+            if($sm['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+
+            if($sm['privacy'] == "public"){
+                $privacy = "private";
+            }
+            else if($sm['privacy'] == "private"){
+                $privacy = "public";
+            }            
+
+            $sm->update([
+                "privacy" => $privacy
+            ]);
+            return redirect()->route('profile.edit');
+        }
     }
 
     public function profileDelete($type, $id)
@@ -247,6 +278,14 @@ class HomeController extends Controller
                 return "Error";
             }
             $contact->delete();
+            return redirect()->route('profile.edit');
+        }
+        if($type == "socialmedia"){
+            $sm = SocialMedia::find($id);
+            if($sm['user_id'] != Auth::user()->id){
+                return "Error";
+            }
+            $sm->delete();
             return redirect()->route('profile.edit');
         }
     }
