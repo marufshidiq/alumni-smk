@@ -27,7 +27,7 @@
                                     <p>
                                         <b>Email</b>
                                         @foreach($profile['email'] as $email)
-                                        <br />{{$email['email']}}
+                                        <br />{{$email['email']}} @if($email['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'email', 'id' => $email['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi." ></i></a>@endif
                                         @endforeach
                                     </p>
                                 </div>
@@ -39,7 +39,7 @@
                                     <p>
                                         <b>Kontak</b>
                                         @foreach($profile['phone'] as $phone)
-                                        <br />@if($phone['whatsapp'])<i class="fa fa-whatsapp"></i>@endif {{$phone['phone']}} 
+                                        <br />@if($phone['whatsapp'])<i class="fa fa-whatsapp"></i>@endif {{$phone['phone']}} @if($phone['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'phone', 'id' => $phone['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a>@endif
                                         @endforeach
                                     </p>
                                 </div>
@@ -51,7 +51,7 @@
                                     <p>
                                         <b>Alamat</b>                                        
                                         @foreach($profile['address'] as $address)
-                                        <br /><i class="fa fa-home"></i> {{$address['address1']}}
+                                        <br /><i class="fa fa-home"></i> {{$address['address1']}} @if($address['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'address', 'id' => $address['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a>@endif
                                         @if($address['privacy'] != "private")
                                         <br />{{$address['address2']}} 
                                         @endif
@@ -72,8 +72,12 @@
                             @foreach($chunk as $sm)
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                 <div class="address-hr">
-                                    <a href="{{$sm['link']}}"><i class="{{$sm['icon']}}"></i></a> 
+                                    <a href="{{$sm['link']}}"><i class="{{$sm['icon']}}"></i></a>
+                                    @if($sm['privacy'] == "private")
+                                    <h6><a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'social', 'id' => $sm['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a></h6>
+                                    @elseif($sm['privacy'] == "public")
                                     <h6>{{$sm['username']}}</h6>                                   
+                                    @endif 
                                 </div>
                             </div> 
                             @endforeach
@@ -469,4 +473,14 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+$(document).ready(function(){
+    $('[tool-tip-toggle="tooltip-demo"]').tooltip({
+        placement : 'top'
+    });
+});
+</script>
 @endsection

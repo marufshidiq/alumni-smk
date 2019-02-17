@@ -11,6 +11,7 @@ use App\Email;
 use App\ContactNumber;
 use App\SocialMedia;
 use App\User;
+use App\ProfileRequest;
 
 class HomeController extends Controller
 {
@@ -291,6 +292,40 @@ class HomeController extends Controller
         }
     }
 
+    public function profileRequest($user, $type, $id)
+    {
+        if($user == Auth::user()->id){
+            return redirect()->route('profile');
+        }
+
+        $typeAllow = false;
+        
+        switch($type){
+            case 'email':
+            case 'phone':
+            case 'address':
+            case 'social':
+                $typeAllow = true;
+                break;
+        }
+        
+        if(!$typeAllow){
+            return redirect()->route('profile');
+        }
+        
+        if(User::where('id', $user)->count()!=1){
+            return redirect()->route('profile');
+        }
+
+        $pr = ProfileRequest::firstOrCreate([
+            'type' => $type,
+            'media_id' => $id,
+            'user_id' => $user,
+            'foreign_id' => Auth::user()->id
+        ], ['allow' => 0]);
+        return redirect()->back();
+    }
+
     public function showProfile($slug)
     {
         $user = User::where('slug', $slug);
@@ -301,10 +336,16 @@ class HomeController extends Controller
         $user = $user->first();
 
         $profile["name"] = $user['name'];
+        $profile["id"] = $user['id'];
+
+        $ownProfile = false;
+        if($user['id'] == Auth::user()->id){
+            $ownProfile = true;
+        }
 
         $emailArray = array();
         foreach($user->emails as $obj){
-            if($obj['privacy'] == "private"){
+            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
                 $email = array(
                     'privacy' => "private",
                     'email' => $this->hideProfile("email", $obj['email'])
@@ -316,13 +357,14 @@ class HomeController extends Controller
                     'email' => $obj['email']
                 );
             }
+            $email['id'] = $obj['id'];
             array_push($emailArray, $email);
         }
         $profile["email"] = $emailArray;
 
         $phoneArray = array();
         foreach($user->contactNumbers as $obj){
-            if($obj['privacy'] == "private"){
+            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
                 $phone = array(
                     'privacy' => "private",
                     'whatsapp' => $obj['whatsapp'],
@@ -336,13 +378,14 @@ class HomeController extends Controller
                     'phone' => $obj['number']
                 );
             }
+            $phone['id'] = $obj['id'];
             array_push($phoneArray, $phone);
         }
         $profile["phone"] = $phoneArray;
 
         $addressArray = array();
         foreach($user->addresses as $obj){
-            if($obj['privacy'] == "private"){
+            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
                 $address = array(
                     'privacy' => "private",
                     'address1' => $this->convertToAsterisk($obj['address'], 5),
@@ -356,13 +399,14 @@ class HomeController extends Controller
                     'address2' => $obj->districtDetails['name'].", ".$obj->cityDetails['name'].", ".$obj->provinceDetails['name']
                 );
             }
+            $address['id'] = $obj['id'];
             array_push($addressArray, $address);
         }
         $profile["address"] = $addressArray;
 
         $socialMediaArray = array();
         foreach($user->socialMedia as $obj){
-            if($obj['privacy'] == "private"){
+            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
                 $socialmedia = array(
                     'privacy' => "private",
                     'username' => "***",
@@ -377,7 +421,7 @@ class HomeController extends Controller
                 );
             }
             $socialmedia['icon'] = $obj->details['icon'];
-
+            $socialmedia['id'] = $obj['id'];
             array_push($socialMediaArray, $socialmedia);
         }
         $profile["socialmedia"] = $socialMediaArray;
@@ -389,7 +433,11 @@ class HomeController extends Controller
     {
         if($type == "email"){
             $part = explode("@", $content);
-            $email = $this->convertToAsterisk($part[0], 3);
+            $pre = 3;
+            if(strlen($part[0]) <= 4){
+                $pre = 1;
+            }
+            $email = $this->convertToAsterisk($part[0], 1);
             $email .= "@";            
             $email .= $this->convertToAsterisk($part[1], 1, 3);
             return $email;
@@ -405,7 +453,7 @@ class HomeController extends Controller
     {
         $length = strlen($content);
         $asterisk = "";
-        for($i=0;$i<=$length-$prefix-$suffix;$i++){
+        for($i=0;$i<$length-$prefix-$suffix;$i++){
             $asterisk .= "*";
         }
         $return = "";        
