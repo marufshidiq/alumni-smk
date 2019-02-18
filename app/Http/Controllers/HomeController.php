@@ -343,11 +343,39 @@ class HomeController extends Controller
             $ownProfile = true;
         }
 
+        $prRaw = ProfileRequest::where('user_id', $user['id'])->where('foreign_id', Auth::user()->id)->get();
+        $prArray = array();
+        $prArray['email'] = array();
+        $prArray['phone'] = array();
+        $prArray['address'] = array();
+        $prArray['social'] = array();
+        foreach($prRaw as $pr){
+            array_push($prArray[$pr['type']], $pr);
+        }        
+
         $emailArray = array();
         foreach($user->emails as $obj){
-            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
+            $prStatus = "private";
+            $allowProfile = false;
+            if($ownProfile){
+                $allowProfile = true;
+            }
+            else {
+                foreach($prArray['email'] as $pr){
+                    if($obj['id'] == $pr['media_id']){
+                        if($pr['allow'] == 0){
+                            $allowProfile = false;
+                            $prStatus = "request";
+                        }
+                        else{
+                            $allowProfile = true;
+                        }
+                    }
+                }
+            }
+            if(($obj['privacy'] == "private") && ($allowProfile!=true)){
                 $email = array(
-                    'privacy' => "private",
+                    'privacy' => $prStatus,
                     'email' => $this->hideProfile("email", $obj['email'])
                 );
             }
@@ -364,9 +392,27 @@ class HomeController extends Controller
 
         $phoneArray = array();
         foreach($user->contactNumbers as $obj){
-            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
+            $prStatus = "private";
+            $allowProfile = false;
+            if($ownProfile){
+                $allowProfile = true;
+            }
+            else {
+                foreach($prArray['phone'] as $pr){
+                    if($obj['id'] == $pr['media_id']){
+                        if($pr['allow'] == 0){
+                            $allowProfile = false;
+                            $prStatus = "request";
+                        }
+                        else{
+                            $allowProfile = true;
+                        }
+                    }
+                }
+            }
+            if(($obj['privacy'] == "private") && ($allowProfile!=true)){
                 $phone = array(
-                    'privacy' => "private",
+                    'privacy' => $prStatus,
                     'whatsapp' => $obj['whatsapp'],
                     'phone' => $this->hideProfile("phone", $obj['number'])
                 );
@@ -385,9 +431,27 @@ class HomeController extends Controller
 
         $addressArray = array();
         foreach($user->addresses as $obj){
-            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
+            $prStatus = "private";
+            $allowProfile = false;
+            if($ownProfile){
+                $allowProfile = true;
+            }
+            else {
+                foreach($prArray['address'] as $pr){
+                    if($obj['id'] == $pr['media_id']){
+                        if($pr['allow'] == 0){
+                            $allowProfile = false;
+                            $prStatus = "request";
+                        }
+                        else{
+                            $allowProfile = true;
+                        }
+                    }
+                }
+            }
+            if(($obj['privacy'] == "private") && ($allowProfile!=true)){
                 $address = array(
-                    'privacy' => "private",
+                    'privacy' => $prStatus,
                     'address1' => $this->convertToAsterisk($obj['address'], 5),
                     'address2' => ""
                 );
@@ -406,9 +470,27 @@ class HomeController extends Controller
 
         $socialMediaArray = array();
         foreach($user->socialMedia as $obj){
-            if(($obj['privacy'] == "private") && ($ownProfile!=true)){
+            $prStatus = "private";
+            $allowProfile = false;
+            if($ownProfile){
+                $allowProfile = true;
+            }
+            else {
+                foreach($prArray['social'] as $pr){
+                    if($obj['id'] == $pr['media_id']){
+                        if($pr['allow'] == 0){
+                            $allowProfile = false;
+                            $prStatus = "request";
+                        }
+                        else{
+                            $allowProfile = true;
+                        }
+                    }
+                }
+            }
+            if(($obj['privacy'] == "private") && ($allowProfile!=true)){
                 $socialmedia = array(
-                    'privacy' => "private",
+                    'privacy' => $prStatus,
                     'username' => "***",
                     'link' => "#"
                 );

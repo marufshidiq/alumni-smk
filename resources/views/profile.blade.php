@@ -27,7 +27,10 @@
                                     <p>
                                         <b>Email</b>
                                         @foreach($profile['email'] as $email)
-                                        <br />{{$email['email']}} @if($email['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'email', 'id' => $email['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi." ></i></a>@endif
+                                        <br />{{$email['email']}} 
+                                        @if($email['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'email', 'id' => $email['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi." ></i></a>
+                                        @elseif($email['privacy'] == "request")<i class="fa fa-envelope" tool-tip-toggle="tooltip-demo" data-original-title="Permohonan akses telah dikirimkan."></i>
+                                        @endif
                                         @endforeach
                                     </p>
                                 </div>
@@ -39,7 +42,10 @@
                                     <p>
                                         <b>Kontak</b>
                                         @foreach($profile['phone'] as $phone)
-                                        <br />@if($phone['whatsapp'])<i class="fa fa-whatsapp"></i>@endif {{$phone['phone']}} @if($phone['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'phone', 'id' => $phone['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a>@endif
+                                        <br />@if($phone['whatsapp'])<i class="fa fa-whatsapp"></i>@endif {{$phone['phone']}} 
+                                        @if($phone['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'phone', 'id' => $phone['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a>
+                                        @elseif($phone['privacy'] == "request")<i class="fa fa-envelope" tool-tip-toggle="tooltip-demo" data-original-title="Permohonan akses telah dikirimkan."></i>
+                                        @endif
                                         @endforeach
                                     </p>
                                 </div>
@@ -51,7 +57,10 @@
                                     <p>
                                         <b>Alamat</b>                                        
                                         @foreach($profile['address'] as $address)
-                                        <br /><i class="fa fa-home"></i> {{$address['address1']}} @if($address['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'address', 'id' => $address['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a>@endif
+                                        <br /><i class="fa fa-home"></i> {{$address['address1']}} 
+                                        @if($address['privacy'] == "private")<a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'address', 'id' => $address['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a>
+                                        @elseif($address['privacy'] == "request")<i class="fa fa-envelope" tool-tip-toggle="tooltip-demo" data-original-title="Permohonan akses telah dikirimkan."></i>
+                                        @endif
                                         @if($address['privacy'] != "private")
                                         <br />{{$address['address2']}} 
                                         @endif
@@ -75,6 +84,8 @@
                                     <a href="{{$sm['link']}}"><i class="{{$sm['icon']}}"></i></a>
                                     @if($sm['privacy'] == "private")
                                     <h6><a href="{{ route('profile.request', ['user' =>$profile['id'], 'type' => 'social', 'id' => $sm['id']]) }}"><i class="fa fa-unlock-alt" tool-tip-toggle="tooltip-demo" data-original-title="Klik icon ini untuk meminta akses informasi."></i></a></h6>
+                                    @elseif($sm['privacy'] == "request")
+                                    <h6><i class="fa fa-envelope" tool-tip-toggle="tooltip-demo" data-original-title="Permohonan akses telah dikirimkan."></i></h6>
                                     @elseif($sm['privacy'] == "public")
                                     <h6>{{$sm['username']}}</h6>                                   
                                     @endif 
