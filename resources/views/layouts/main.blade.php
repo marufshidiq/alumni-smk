@@ -6,6 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title', 'Sistem Informasi') | Alumni SMK N 1 Klaten</title>
     <meta name="description" content="">
+    <meta name="app-version" content="@version('version-compact')">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
 		============================================ -->
@@ -631,7 +632,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer-copy-right">
-                            <p>Copyright © 2019. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a></p>
+                            <p>Copyright © 2019. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a><br>
+                            <a target="_blank" href="https://github.com/marufshidiq/alumni-smk">@version('version-compact')</a>
+                            </p>
                         </div>
                     </div>
                 </div>
