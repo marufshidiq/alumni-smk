@@ -48,3 +48,8 @@ Route::get('/profile/privacy/{type}/{id}', 'HomeController@profilePrivacy')->nam
 Route::get('/profile/delete/{type}/{id}', 'HomeController@profileDelete')->name('profile.delete');
 Route::get('/profile/request/{user}/{type}/{id}', 'HomeController@profileRequest')->name('profile.request');
 Route::get('/profile/{slug}', 'HomeController@showProfile')->name('show.profile');
+
+Route::get('/public/institution/add', 'PublicInfoController@institutionAddView')->name('add.institution.get');
+Route::post('/public/institution/add', 'PublicInfoController@institutionAdd')->name('add.institution');
+Route::get('/public/industry/add', 'PublicInfoController@industryAddView')->name('add.industry.get');
+Route::post('/public/industry/add', 'PublicInfoController@industryAdd')->name('add.industry');

@@ -209,7 +209,7 @@
                                                     </span>                                                    
                                                 </div>
                                             </div>
-                                            <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newSchoolProfileModal"><i class="fa fa-university"></i> Tambahkan Riwayat Sekolah</a>                                                                                     
+                                            <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newSchoolProfileModal"><i class="fa fa-university"></i> Tambahkan Riwayat Pendidikan</a>
                                         </div>
                                     </div>
                                 </div>
@@ -242,7 +242,7 @@
                                                     </span>                                                    
                                                 </div>
                                             </div>
-                                            <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newSchoolProfileModal"><i class="fa fa-industry"></i> Tambahkan Riwayat Pekerjaan</a>
+                                            <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newIndustryProfileModal"><i class="fa fa-industry"></i> Tambahkan Riwayat Pekerjaan</a>
                                         </div>
                                     </div>
                                 </div>
@@ -257,44 +257,166 @@
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="basic-login-inner modal-basic-inner">
-                                                    <h5>Informasi Sekolah Baru</h5>
-                                                    <p>Masukkan informasi tempat sekolah anda</p>
+                                                    <h5>Informasi Riwayat Sekolah</h5>
+                                                    <p>Masukkan informasi riwayat sekolah anda</p>
                                                     <form action="{{route('socialmedia.save')}}" method="POST">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="act" value="add">
                                                         <div class="form-group-inner">
                                                             <div class="row">
-                                                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                                    <label class="login2">Media</label>
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Institusi</label>
                                                                 </div>
-                                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                                                     <div class="form-select-list">
-                                                                            <select class="form-control custom-select-value" name="media" id="media">
-                                                                                @foreach(\App\SocialMediaList::all() as $sm)
-                                                                                <option value="{{$sm['id']}}">{{$sm['name']}}</option>
-                                                                                @endforeach
-                                                                            </select>
+                                                                        <select data-placeholder="Pilih institusi..." class="chosen-select" name="school" tabindex="-1">
+                                                                            @foreach(\App\SchoolList::all()->sortBy('name') as $data)
+                                                                            <option value="{{$data['id']}}">{{$data['name']}} @if(!$data['active'])*@endif</option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <br>
                                                             <div class="row">
-                                                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                                    <label class="login2">Username</label>
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Jenjang</label>
                                                                 </div>
-                                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                                    <input type="text" id="username" name="username" class="form-control" placeholder="Masukkan username dari media sosial anda" required/>
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                    <div class="form-select-list">
+                                                                        <select data-placeholder="Pilih jenjang..." class="chosen-select" name="grade" tabindex="-1">
+                                                                            <option value="Kursus">Kursus Profesional</option>
+                                                                            <option value="Profesi">Profesi</option>
+                                                                            <option value="D1">D1</option>
+                                                                            <option value="D2">D2</option>
+                                                                            <option value="D3">D3</option>
+                                                                            <option value="D4">D4</option>
+                                                                            <option value="S1">S1</option>
+                                                                            <option value="S2">S2</option>
+                                                                            <option value="S3">S3</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Jurusan</label>
+                                                                </div>
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                    <input type="text" id="major" name="major" class="form-control" placeholder="Jurusan" required/>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Masa Pendidikan</label>
+                                                                </div>
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                            <input type="text" id="start-school" name="start-school" class="form-control" placeholder="Tahun Masuk" required/>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                            <input type="text" id="end-school" name="end-school" class="form-control" placeholder="Tahun Keluar" required/>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>                                                        
-                                                        <i class="fa fa-external-link" id="external-link-icon" style="display:none;"></i>&nbsp;&nbsp;<span id="url-username"></span>
                                                         <br>
-                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Penggunaan username akan memudahkan pengguna lain untuk menuju profil media sosial anda
+                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Apabila anda tidak menemukan nama Institusi pendidikan dalam daftar tersebut, anda dapat menambahkan melalui link berikut : <a href="{{route('add.institution.get')}}">Tambah informasi Institusi</a>
                                                         <br>
-                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Gunakan link diatas untuk mencoba apakah username yang anda masukkan benar-benar mengarah ke media sosial anda
+                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Institusi yang belum diverifikasi oleh admin (bertanda *) belum akan ditampilkan pada halaman publik
                                                         <div class="login-btn-inner">                                                                
                                                             <div class="row">
-                                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
+                                                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                                                    <div class="login-horizental">
+                                                                        <button class="btn btn-sm btn-primary login-submit-cs" type="submit">Simpan</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="newIndustryProfileModal" class="modal modal-edu-general modal-zoomInDown fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">                                    
+                                <div class="modal-body">
+                                    <div class="modal-login-form-inner">                                            
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="basic-login-inner modal-basic-inner">
+                                                    <h5>Informasi Riwayat Pekerjaan</h5>
+                                                    <p>Masukkan informasi riwayat pekerjaan anda</p>
+                                                    <form action="{{route('socialmedia.save')}}" method="POST">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="act" value="add">
+                                                        <div class="form-group-inner">
+                                                            <div class="row">
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Institusi</label>
+                                                                </div>
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                    <div class="form-select-list">
+                                                                        <select data-placeholder="Pilih institusi..." class="chosen-select" name="industry" tabindex="-1">
+                                                                            @foreach(\App\IndustryList::all()->sortBy('name') as $data)
+                                                                            <option value="{{$data['id']}}">{{$data['name']}} @if(!$data['active'])*@endif</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br>                                                            
+                                                            <div class="row">
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Jabatan</label>
+                                                                </div>
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                    <input type="text" id="position" name="position" class="form-control" placeholder="Jabatan" required/>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Divisi</label>
+                                                                </div>
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                    <input type="text" id="division" name="division" class="form-control" placeholder="Divisi / Bagian"/>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                                    <label class="login2">Periode</label>
+                                                                </div>
+                                                                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                            <input type="text" id="start-school" name="start-school" class="form-control" placeholder="Tahun Mulai" required/>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                                            <input type="text" id="end-school" name="end-school" class="form-control" placeholder="Tahun Selesai" required/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                        
+                                                        <br>
+                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Apabila anda tidak menemukan nama Institusi pendidikan dalam daftar tersebut, anda dapat menambahkan melalui link berikut : <a href="{{route('add.industry.get')}}">Tambah informasi Institusi</a>
+                                                        <br>
+                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Institusi yang belum diverifikasi oleh admin (bertanda *) belum akan ditampilkan pada halaman publik
+                                                        <div class="login-btn-inner">                                                                
+                                                            <div class="row">
+                                                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"></div>
                                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                                                     <div class="login-horizental">
                                                                         <button class="btn btn-sm btn-primary login-submit-cs" type="submit">Simpan</button>
@@ -318,7 +440,15 @@
 </div>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="/main/css/chosen/bootstrap-chosen.css">
+@endsection
+
 @section('js')
+<!-- chosen JS
+============================================ -->
+<script src="/main/js/chosen/chosen.jquery.js"></script>
+<script src="/main/js/chosen/chosen-active.js"></script>
 <script>
 $(document).ready(function(){
     $('[tool-tip-toggle="tooltip-demo"]').tooltip({
