@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <div class="profile-info-inner">
+                @if($ownProfile)
                 <a class="btn btn-sm btn-primary" href="{{ route('profile.edit') }}"><i class="fa fa-pencil"></i> Ubah Profil</a>
+                @endif
                     <div class="profile-img">
                         <img src="/main/img/user.png" style="border-radius: 50%;" alt="" />
                     </div>
@@ -203,7 +205,9 @@
                                                 </div>
                                             </div>
                                             @endforeach
+                                            @if($ownProfile)
                                             <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newSchoolProfileModal"><i class="fa fa-university"></i> Tambahkan Riwayat Pendidikan</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -230,7 +234,9 @@
                                                 </div>
                                             </div>
                                             @endforeach
+                                            @if($ownProfile)
                                             <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newIndustryProfileModal"><i class="fa fa-industry"></i> Tambahkan Riwayat Pekerjaan</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

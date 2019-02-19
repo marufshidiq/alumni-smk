@@ -541,7 +541,7 @@ class HomeController extends Controller
         }
         $profile["socialmedia"] = $socialMediaArray;
 
-        return view('profile', compact('profile', 'schoolList', 'industryList'));
+        return view('profile', compact('profile', 'schoolList', 'industryList', 'ownProfile'));
     }
 
     public function hideProfile($type, $content)
