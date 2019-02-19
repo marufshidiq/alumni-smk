@@ -162,6 +162,36 @@ class HomeController extends Controller
         return redirect()->route('profile.edit');
     }    
 
+    public function schoolSave(Request $request)
+    {
+        $user = Auth::user();
+        if($request->act == "add"){
+            $user->schools()->create([
+                'school_id' => $request->school,
+                'grade' => $request->grade,
+                'major' => $request->major,
+                'start' => $request->start,
+                'end' => $request->end,
+            ]);
+        }
+        return redirect()->route('profile');
+    }
+
+    public function industrySave(Request $request)
+    {
+        $user = Auth::user();
+        if($request->act == "add"){
+            $user->industries()->create([
+                'industry_id' => $request->industry,
+                'position' => $request->position,
+                'division' => $request->division,
+                'start' => $request->start,
+                'end' => $request->end,
+            ]);
+        }
+        return redirect()->route('profile');
+    }
+
     public function profilePrivacy($type, $id)
     {
         if($type == "address"){
@@ -334,6 +364,9 @@ class HomeController extends Controller
         }
 
         $user = $user->first();
+
+        $schoolList = $user->schools->sortBy('start');
+        $industryList = $user->industries->sortBy('start');
 
         $profile["name"] = $user['name'];
         $profile["id"] = $user['id'];
@@ -508,7 +541,7 @@ class HomeController extends Controller
         }
         $profile["socialmedia"] = $socialMediaArray;
 
-        return view('profile', compact('profile'));
+        return view('profile', compact('profile', 'schoolList', 'industryList'));
     }
 
     public function hideProfile($type, $content)

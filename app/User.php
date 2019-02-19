@@ -57,4 +57,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\SocialMedia');
     }
+
+    public function schools()
+    {
+        return $this->hasMany('App\SchoolRecord');
+    }
+
+    public function industries()
+    {
+        return $this->hasMany('App\IndustryRecord');
+    }
 }

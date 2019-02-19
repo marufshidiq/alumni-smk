@@ -41,6 +41,8 @@ Route::post('/address/save', 'HomeController@addressSave')->name('address.save')
 Route::post('/email/save', 'HomeController@emailSave')->name('email.save');
 Route::post('/contact/save', 'HomeController@contactSave')->name('contact.save');
 Route::post('/socialmedia/save', 'HomeController@socialMediaSave')->name('socialmedia.save');
+Route::post('/school/save', 'HomeController@schoolSave')->name('school.save');
+Route::post('/industry/save', 'HomeController@industrySave')->name('industry.save');
 Route::get('/profile/edit', 'HomeController@profileEdit')->name('profile.edit');
 Route::post('/profile/edit', 'HomeController@profileEditProcess')->name('profile.edit.post');
 

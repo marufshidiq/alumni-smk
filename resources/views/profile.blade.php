@@ -187,28 +187,19 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
                                         <div class="chat-discussion" style="height: auto">
+                                            @foreach($schoolList as $school)
                                             <div class="chat-message">
                                                 <div class="profile-hdtc">
                                                         <img class="message-avatar" src="/main/img/school.svg" alt="">
                                                 </div>
                                                 <div class="message">
-                                                    <a class="message-author" href="#"> Universitas Gadjah Mada </a>
-                                                    <span class="message-date"> 2015 - 2018 </span>
-                                                    <span class="message-content">D3 Teknik Elektro
+                                                    <a target="_blank" class="message-author" href="@if($school->schoolDetail['url'] != ""){{$school->schoolDetail['url']}}@else # @endif"> {{$school->schoolDetail['name']}} </a>
+                                                    <span class="message-date"> {{$school->start}} - {{$school->end}} </span>
+                                                    <span class="message-content">{{$school->grade}} - {{$school->major}}
                                                     </span>                                                    
                                                 </div>
                                             </div>
-                                            <div class="chat-message">
-                                                <div class="profile-hdtc">
-                                                        <img class="message-avatar" src="/main/img/school.svg" alt="">
-                                                </div>
-                                                <div class="message">
-                                                    <a class="message-author" href="#"> Universitas Gadjah Mada </a>
-                                                    <span class="message-date"> 2015 - 2018 </span>
-                                                    <span class="message-content">D3 Teknik Elektro
-                                                    </span>                                                    
-                                                </div>
-                                            </div>
+                                            @endforeach
                                             <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newSchoolProfileModal"><i class="fa fa-university"></i> Tambahkan Riwayat Pendidikan</a>
                                         </div>
                                     </div>
@@ -220,28 +211,19 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
                                         <div class="chat-discussion" style="height: auto">
+                                            @foreach($industryList as $industry)
                                             <div class="chat-message">
                                                 <div class="profile-hdtc">
                                                         <img class="message-avatar" src="/main/img/work.svg" alt="">
                                                 </div>
                                                 <div class="message">
-                                                    <a class="message-author" href="#"> Universitas Gadjah Mada </a>
-                                                    <span class="message-date"> 2015 - 2018 </span>
-                                                    <span class="message-content">D3 Teknik Elektro
+                                                    <a class="message-author" href="#"> {{$industry->industryDetail['name']}} </a>
+                                                    <span class="message-date"> {{$industry->start}} - {{$industry->end}} </span>
+                                                    <span class="message-content">{{$industry->position}} - {{$industry->division}}
                                                     </span>                                                    
                                                 </div>
                                             </div>
-                                            <div class="chat-message">
-                                                <div class="profile-hdtc">
-                                                        <img class="message-avatar" src="/main/img/work.svg" alt="">
-                                                </div>
-                                                <div class="message">
-                                                    <a class="message-author" href="#"> Universitas Gadjah Mada </a>
-                                                    <span class="message-date"> 2015 - 2018 </span>
-                                                    <span class="message-content">D3 Teknik Elektro
-                                                    </span>                                                    
-                                                </div>
-                                            </div>
+                                            @endforeach
                                             <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newIndustryProfileModal"><i class="fa fa-industry"></i> Tambahkan Riwayat Pekerjaan</a>
                                         </div>
                                     </div>
@@ -259,7 +241,7 @@
                                                 <div class="basic-login-inner modal-basic-inner">
                                                     <h5>Informasi Riwayat Sekolah</h5>
                                                     <p>Masukkan informasi riwayat sekolah anda</p>
-                                                    <form action="{{route('socialmedia.save')}}" method="POST">
+                                                    <form action="{{route('school.save')}}" method="POST">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="act" value="add">
                                                         <div class="form-group-inner">
@@ -315,10 +297,10 @@
                                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                                                     <div class="row">
                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                            <input type="text" id="start-school" name="start-school" class="form-control" placeholder="Tahun Masuk" required/>
+                                                                            <input type="text" id="start" name="start" class="form-control" placeholder="Tahun Masuk" required/>
                                                                         </div>
                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                            <input type="text" id="end-school" name="end-school" class="form-control" placeholder="Tahun Keluar" required/>
+                                                                            <input type="text" id="end" name="end" class="form-control" placeholder="Tahun Keluar" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -357,7 +339,7 @@
                                                 <div class="basic-login-inner modal-basic-inner">
                                                     <h5>Informasi Riwayat Pekerjaan</h5>
                                                     <p>Masukkan informasi riwayat pekerjaan anda</p>
-                                                    <form action="{{route('socialmedia.save')}}" method="POST">
+                                                    <form action="{{route('industry.save')}}" method="POST">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="act" value="add">
                                                         <div class="form-group-inner">
@@ -390,7 +372,7 @@
                                                                     <label class="login2">Divisi</label>
                                                                 </div>
                                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                                                    <input type="text" id="division" name="division" class="form-control" placeholder="Divisi / Bagian"/>
+                                                                    <input type="text" id="division" name="division" class="form-control" placeholder="Divisi / Bagian" required/>
                                                                 </div>
                                                             </div>
                                                             <br>
@@ -401,10 +383,10 @@
                                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                                                     <div class="row">
                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                            <input type="text" id="start-school" name="start-school" class="form-control" placeholder="Tahun Mulai" required/>
+                                                                            <input type="text" id="start" name="start" class="form-control" placeholder="Tahun Mulai" required/>
                                                                         </div>
                                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                            <input type="text" id="end-school" name="end-school" class="form-control" placeholder="Tahun Selesai" required/>
+                                                                            <input type="text" id="end" name="end" class="form-control" placeholder="Tahun Selesai" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
