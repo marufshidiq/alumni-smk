@@ -187,6 +187,9 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
                                         <div class="chat-discussion" style="height: auto">
+                                            @if($schoolList->count() == 0)
+                                            <h4>Belum menambahkan informasi riwayat pendidikan</h4>
+                                            @endif
                                             @foreach($schoolList as $school)
                                             <div class="chat-message">
                                                 <div class="profile-hdtc">
@@ -211,6 +214,9 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
                                         <div class="chat-discussion" style="height: auto">
+                                            @if($industryList->count() == 0)
+                                            <h4>Belum menambahkan informasi riwayat pekerjaan</h4>
+                                            @endif
                                             @foreach($industryList as $industry)
                                             <div class="chat-message">
                                                 <div class="profile-hdtc">
