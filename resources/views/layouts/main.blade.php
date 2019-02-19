@@ -135,7 +135,7 @@
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     {{ csrf_field() }}
                                                 </form>
-                                                <li class="nav-item nav-setting-open"><a href="/main/#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell"></i></a>
+                                                <!-- <li class="nav-item nav-setting-open"><a href="/main/#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="educate-icon educate-bell"></i></a>
 
                                                     <div role="menu" class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">
                                                         <ul class="nav nav-tabs custon-set-tab">
@@ -571,7 +571,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
