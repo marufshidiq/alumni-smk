@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SchoolList;
 use App\IndustryList;
+use App\MajorList;
+use App\EducationYearList;
+use App\ClassList;
 
 class PublicInfoController extends Controller
 {
@@ -36,5 +39,22 @@ class PublicInfoController extends Controller
         $sl->save();
 
         return redirect()->route('profile');
+    }
+
+    public function classList(Request $request)
+    {
+        if($request->act == "first"){
+            $info['year'] = EducationYearList::get()->sortBy('year')->first()['id'];
+            $info['major'] = MajorList::get()->sortBy('name')->first()['id'];
+            $info['status'] = "fisrt";
+            return view('listclass', compact('info'));
+        }
+        $year = $request->year;
+        $major = $request->major;
+        $info['year'] = $year;
+        $info['major'] = $major;
+        $info['status'] = "not";
+        $classList = ClassList::where('year_id', $year)->where('major_id', $major)->get();
+        return view('listclass', compact('info', 'classList'));
     }
 }

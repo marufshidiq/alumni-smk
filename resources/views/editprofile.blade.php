@@ -189,12 +189,17 @@
                             </div>
                         </div>
                         <br>
+                        <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('choose-class').submit();"><i class="fa fa-users"></i> Pilih kelas dan angkatan</a>
                         <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newEmailModal"><i class="fa fa-envelope"></i> Tambahkan Email</a>
                         <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newContactModal"><i class="fa fa-phone"></i> Tambahkan Kontak</a>                        
                         <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('add-address').submit();"><i class="fa fa-home"></i> Tambahkan Alamat</a>
                         <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newSocialMediaModal"><i class="fa fa-globe"></i> Tambahkan Media Sosial</a>
                         <form id="add-address" action="{{route('address.addedit.form')}}" method="POST">
                         <input type="hidden" name="act" value="add">
+                        {{ csrf_field() }}
+                        </form>
+                        <form id="choose-class" action="{{route('class.list')}}" method="POST">
+                        <input type="hidden" name="act" value="first">
                         {{ csrf_field() }}
                         </form>
                         <br>
