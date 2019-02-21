@@ -282,7 +282,9 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div>                                                            
+                                                            <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Apabila anda tidak menemukan nama Institusi pendidikan dalam daftar tersebut, anda dapat menambahkan melalui link berikut : <a href="{{route('add.institution.get')}}">Tambah informasi Institusi</a>
+                                                            <br>
                                                             <br>
                                                             <div class="row">
                                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -316,7 +318,7 @@
                                                             <br>
                                                             <div class="row">
                                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                                    <label class="login2">Masa Pendidikan</label>
+                                                                    <label class="login2">Periode</label>
                                                                 </div>
                                                                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                                                                     <div class="row">
@@ -329,9 +331,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>                                                        
-                                                        <br>
-                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Apabila anda tidak menemukan nama Institusi pendidikan dalam daftar tersebut, anda dapat menambahkan melalui link berikut : <a href="{{route('add.institution.get')}}">Tambah informasi Institusi</a>
+                                                        </div>                                                                                                            
                                                         <br>
                                                         <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Institusi yang belum diverifikasi oleh admin (bertanda *) belum akan ditampilkan pada halaman publik
                                                         <div class="login-btn-inner">                                                                
@@ -381,6 +381,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Apabila anda tidak menemukan nama Institusi pendidikan dalam daftar tersebut, anda dapat menambahkan melalui link berikut : <a href="{{route('add.industry.get')}}">Tambah informasi Institusi</a>
+                                                            <br>
                                                             <br>                                                            
                                                             <div class="row">
                                                                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -415,9 +417,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>                                                        
-                                                        <br>
-                                                        <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Apabila anda tidak menemukan nama Institusi pendidikan dalam daftar tersebut, anda dapat menambahkan melalui link berikut : <a href="{{route('add.industry.get')}}">Tambah informasi Institusi</a>
+                                                        </div>                                                                                                                
                                                         <br>
                                                         <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Institusi yang belum diverifikasi oleh admin (bertanda *) belum akan ditampilkan pada halaman publik
                                                         <div class="login-btn-inner">                                                                
