@@ -45,7 +45,7 @@
                                                         <div class="col-lg-9">
                                                             <div class="login-horizental cancel-wp pull-left form-bc-ele">
                                                                 <button class="btn btn-sm btn-primary login-submit-cs" type="submit">Tambahkan</button>
-                                                                <button class="btn btn-white" type="submit">Batal</button>
+                                                                <button class="btn btn-white" onclick="location.href='{{route('profile')}}'" type="button">Batal</button>
                                                             </div>
                                                         </div>
                                                     </div>

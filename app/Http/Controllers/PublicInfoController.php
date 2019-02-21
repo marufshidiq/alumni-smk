@@ -57,4 +57,22 @@ class PublicInfoController extends Controller
         $classList = ClassList::where('year_id', $year)->where('major_id', $major)->get();
         return view('listclass', compact('info', 'classList'));
     }
+
+    public function majorAddView()
+    {
+        return view('addmajor');
+    }
+
+    public function majorAdd(Request $request)
+    {
+        $full_name = ucwords($request->full_name);
+        $full_name = str_replace("Dan", "dan", $full_name);
+
+        $major = new MajorList;
+        $major->current_major_id = $request->current_major;
+        $major->name = $full_name;
+        $major->short_name = strtoupper($request->short_name);
+        $major->save();
+        return redirect()->route('profile.edit');
+    }
 }

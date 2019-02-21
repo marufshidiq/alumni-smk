@@ -51,7 +51,7 @@
                                             <br>
                                             <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Bagi alumni yang merupakan pindahan dari sekolah lain, harap menyesuaikan Tahun Masuk dengan Tahun Masuk teman-teman diangkatannya.
                                             <br>
-                                            <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Dikarenakan nama jurusan yang mungkin mengalami beberapa perubahan dari tahun ke tahun, maka nama jurusan ditampilkan dalam format <b>Nama Jurusan saat itu - Nama Jurusan yang sepadan dengan jurusan yang ada saat ini</b>. Untuk itu apabila anda tidak menemukan nama jurusan yang sesuai dengan jurusan anda saat itu, dapat menambahkan melalui link berikut : <a href="{{route('add.institution.get')}}">Tambah informasi Jurusan</a>
+                                            <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Dikarenakan nama jurusan yang mungkin mengalami beberapa perubahan dari tahun ke tahun, maka nama jurusan ditampilkan dalam format <b>Nama Jurusan saat itu - Nama Jurusan yang sepadan dengan jurusan yang ada saat ini</b>. Untuk itu apabila anda tidak menemukan nama jurusan yang sesuai dengan jurusan anda saat itu, dapat menambahkan melalui link berikut : <a href="{{route('add.major.get')}}">Tambah informasi Jurusan</a>
                                         </form>
                                     </div>
                                 </div>
