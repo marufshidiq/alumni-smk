@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/address', 'APIController@addressDetail')->name('api.get.address');
 Route::post('/media', 'APIController@mediaDetail')->name('api.get.media');
+Route::post('/class/members', 'APIController@classMembersDetail')->name('api.get.class.member');

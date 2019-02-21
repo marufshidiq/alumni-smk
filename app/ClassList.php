@@ -15,4 +15,14 @@ class ClassList extends Model
     {
         return $this->hasOne('App\MajorList', 'id', 'major_id');
     }
+
+    public function members()
+    {
+        return $this->hasMany('App\ClassMember', 'class_id');
+    }
+
+    public function countMember()
+    {
+        return $this->members->count();
+    }
 }

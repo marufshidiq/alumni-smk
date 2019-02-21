@@ -38,6 +38,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function class()
+    {
+        return $this->hasOne('App\ClassMember');
+    }
+
     public function addresses()
     {
         return $this->hasMany('App\Address');

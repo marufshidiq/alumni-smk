@@ -12,6 +12,7 @@ use App\ContactNumber;
 use App\SocialMedia;
 use App\User;
 use App\ProfileRequest;
+use App\ClassMember;
 
 class HomeController extends Controller
 {
@@ -281,6 +282,17 @@ class HomeController extends Controller
 
             $sm->update([
                 "privacy" => $privacy
+            ]);
+            return redirect()->route('profile.edit');
+        }
+        if($type == "class"){
+            $user = Auth::user();
+            $exist = ClassMember::where('user_id', $user->id)->count();
+            if($exist > 0){
+                return redirect()->route('profile.edit');
+            }
+            $user->class()->create([
+                'class_id' => $id
             ]);
             return redirect()->route('profile.edit');
         }

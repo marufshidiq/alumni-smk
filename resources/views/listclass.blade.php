@@ -102,17 +102,50 @@
                         @if($class['alias']!="")
                         <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-commenting"></i></span> {{$class['alias']}}</span>
                         @endif
-                        <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-user"></i></span> 20</span>                        
+                        <span class="cr-ic-r"><span class="course-icon"><i class="fa fa-user"></i></span> {{$class->countMember()}}</span>                        
                     </div>
                     <div class="course-des">
                     </div>
                     <div class="product-buttons">
-                        <a class="btn btn-sm btn-info"><i class="fa fa-users"></i> Tampilkan anggota</a>
-                        <a class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Klaim Kelas</a>
+                        @if($class->countMember() !=0)
+                        <a class="btn btn-sm btn-info class-member" data-id="{{$class['id']}}" data-toggle="modal" data-target="#showMemberModal" ><i class="fa fa-users"></i> Tampilkan anggota</a>
+                        @endif
+                        <a class="btn btn-sm btn-success" href="{{route('profile.privacy', ['type'=>'class', 'id'=>$class['id']])}}"><i class="fa fa-plus"></i> Klaim Kelas</a>
                     </div>
                 </div>
             </div> 
             @endforeach           
+        </div>
+    </div>
+</div>
+<div id="showMemberModal" class="modal modal-edu-general modal-zoomInDown fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">                                    
+            <div class="modal-body">
+                <div class="modal-login-form-inner">                                            
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="basic-login-inner modal-basic-inner">
+                                <h5>Daftar Alumni</h5>
+                                <div id="members-modal-title"></div>  
+                                <div>
+                                    <table class="table table-striped" id="members-modal-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama Alumni</th>
+                                                <th>Tanggal Bergabung</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                      
+                                        </tbody>
+                                    </table>
+                                </div>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -130,4 +163,28 @@
 ============================================ -->
 <script src="/main/js/chosen/chosen.jquery.js"></script>
 <script src="/main/js/chosen/chosen-active.js"></script>
+<script>
+    $(".class-member").click(function() {
+        var id = $(this).data("id");
+        updateModal(id);
+    });
+
+    function updateModal(id){
+        $.post("{{route('api.get.class.member')}}",
+        {
+            id: id,            
+        },
+        function(data, status){
+            console.log(data);
+            var title = "Angkatan "+data.details.year+" kelas "+data.details.name+"<br>";
+            content = "";
+            $.each(data.members, function (i, member) {
+                content += "<tr><td>"+member.name+"</td><td>"+member.join+"</td></tr>";
+            });
+            $("#members-modal-title").html(title);
+            $("#members-modal-table tbody").empty();
+            $("#members-modal-table tbody").html(content);
+        });
+    }
+</script>
 @endsection
