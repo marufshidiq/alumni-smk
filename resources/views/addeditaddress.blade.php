@@ -71,7 +71,7 @@
                     </div>
                     </form>
                     <br>
-                    <a class="btn btn-sm btn-success" onclick="saveAddress();"><i class="fa fa-save"></i> Simpan</a>
+                    <a class="btn btn-sm btn-success" onclick="saveAddress(event);"><i class="fa fa-save"></i> Simpan</a>
                     <a class="btn btn-sm btn-default" href="{{ route('profile.edit') }}"><i class="fa fa-ban"></i> Batal</a>
                 </div>
             </div>           
@@ -150,7 +150,7 @@
         $(".district-section").show();
     });
 
-    function saveAddress(){
+    function saveAddress(event){
         event.preventDefault();
         var selectedProvince = $('.province').val();
         var selectedCity = $('.city').val();

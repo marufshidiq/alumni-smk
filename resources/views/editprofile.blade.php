@@ -370,16 +370,16 @@
     $(document).ready(function() {
         changeURL({{\App\SocialMediaList::first()['id']}});
     });
-    $( "#change-name" ).click(function() {
+    $( "#change-name" ).click(function(event) {
         event.preventDefault();
         $("#change-name-btn").show();
         $("#name").prop('disabled', false);
     });
-    $( "#change-name-save" ).click(function() {
+    $( "#change-name-save" ).click(function(event) {
         event.preventDefault();
         document.changeName.submit();
     });
-    $( "#change-name-cancel" ).click(function() {
+    $( "#change-name-cancel" ).click(function(event) {
         event.preventDefault();
         $("#change-name-btn").hide();
         $("#name").prop('disabled', true);
