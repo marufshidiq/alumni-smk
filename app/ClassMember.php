@@ -14,4 +14,9 @@ class ClassMember extends Model
     {
         return $this->hasOne('App\User', 'id', 'user_id');
     }
+
+    public function classDetails()
+    {
+        return $this->hasOne('App\ClassList', 'id', 'class_id');
+    }
 }

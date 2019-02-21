@@ -44,6 +44,9 @@ class PublicInfoController extends Controller
 
     public function classList(Request $request)
     {
+        if(Auth::user()->class()->count() == 1){
+            return redirect()->route('profile');
+        }
         if($request->act == "first"){
             $info['year'] = EducationYearList::get()->sortBy('year')->first()['id'];
             $info['major'] = MajorList::get()->sortBy('name')->first()['id'];

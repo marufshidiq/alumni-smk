@@ -23,6 +23,18 @@
                                 </div>
                             </div>                            
                         </div>
+                        @if($profile['class'] != "")
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="address-hr">
+                                    <p>
+                                        <b>Angkatan / Kelas</b>
+                                        <br />{{ $profile['year'] }} / {{ $profile['class'] }}
+                                    </p>
+                                </div>
+                            </div>                            
+                        </div>
+                        @endif
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="address-hr">

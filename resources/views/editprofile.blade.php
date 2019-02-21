@@ -189,7 +189,9 @@
                             </div>
                         </div>
                         <br>
+                        @if(Auth::user()->class()->count() == 0)
                         <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('choose-class').submit();"><i class="fa fa-users"></i> Pilih kelas dan angkatan</a>
+                        @endif
                         <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newEmailModal"><i class="fa fa-envelope"></i> Tambahkan Email</a>
                         <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#newContactModal"><i class="fa fa-phone"></i> Tambahkan Kontak</a>                        
                         <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('add-address').submit();"><i class="fa fa-home"></i> Tambahkan Alamat</a>

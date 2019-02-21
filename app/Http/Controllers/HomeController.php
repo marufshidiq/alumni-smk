@@ -382,6 +382,14 @@ class HomeController extends Controller
 
         $profile["name"] = $user['name'];
         $profile["id"] = $user['id'];
+        if($user->class()->count() == 1){
+            $profile["class"] = $user->class->classDetails->majorInfo['short_name'] ."-". $user->class->classDetails['name'];
+            $profile["year"] = $user->class->classDetails->yearInfo['year'];
+        }
+        else {
+            $profile["class"] = "";
+            $profile["year"] = "";
+        }
 
         $ownProfile = false;
         if($user['id'] == Auth::user()->id){
