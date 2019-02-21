@@ -73,7 +73,7 @@
                             @else
                             <i class="fa fa-info-circle" ></i>&nbsp;&nbsp;Apabila anda belum menemukan kelas anda pada angkatan ini, silahkan tambahkan data kelas baru                            
                             @endif
-                            <a class="btn btn-sm btn-success"><i class="fa fa-user-plus"></i> Tambahkan data kelas baru</a>
+                            <a class="btn btn-sm btn-success" href="{{route('add.class.get')}}"><i class="fa fa-user-plus"></i> Tambahkan data kelas baru</a>
                         </div>
                     </div>                    
                 </div>

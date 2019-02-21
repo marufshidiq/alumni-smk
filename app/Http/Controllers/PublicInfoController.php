@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\SchoolList;
 use App\IndustryList;
 use App\MajorList;
@@ -73,6 +74,24 @@ class PublicInfoController extends Controller
         $major->name = $full_name;
         $major->short_name = strtoupper($request->short_name);
         $major->save();
+        return redirect()->route('profile.edit');
+    }
+
+    public function classAddView()
+    {
+        return view('addclass');
+    }
+
+    public function classAdd(Request $request)
+    {
+        $class = new ClassList;
+        $class->year_id = $request->year;
+        $class->major_id = $request->major;
+        $class->name = $request->class;
+        $class->alias = $request->alias;
+        $class->creator_id = Auth::user()->id;
+        $class->save();
+
         return redirect()->route('profile.edit');
     }
 }

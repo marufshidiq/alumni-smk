@@ -57,5 +57,8 @@ Route::get('/public/industry/add', 'PublicInfoController@industryAddView')->name
 Route::post('/public/industry/add', 'PublicInfoController@industryAdd')->name('add.industry');
 Route::get('/public/major/add', 'PublicInfoController@majorAddView')->name('add.major.get');
 Route::post('/public/major/add', 'PublicInfoController@majorAdd')->name('add.major');
+Route::get('/public/class/add', 'PublicInfoController@classAddView')->name('add.class.get');
+Route::post('/public/class/add', 'PublicInfoController@classAdd')->name('add.class');
+
 
 Route::post('/class/list', 'PublicInfoController@classList')->name('class.list');
