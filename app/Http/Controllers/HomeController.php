@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Laravolt\Indonesia\Indonesia;
+use Illuminate\Support\Carbon;
 
 use App\Address;
 use App\Email;
@@ -13,6 +14,8 @@ use App\SocialMedia;
 use App\User;
 use App\ProfileRequest;
 use App\ClassMember;
+use App\MajorList;
+use App\ClassList;
 
 class HomeController extends Controller
 {
@@ -51,6 +54,13 @@ class HomeController extends Controller
         }
         if($user->socialMedia->count() > 0){
             $checklist['social'] = true;
+        }
+
+        $ts = filemtime(public_path("main/js/morrisjs/smkn1klaten.js"));
+        $last = Carbon::createFromTimestamp($ts);        
+        $diff = Carbon::now()->diffInMinutes($last);
+        if($diff > 59){
+            $this->generateMorrisJS();
         }
 
         return view('dashboard', compact('checklist'));
@@ -617,5 +627,38 @@ class HomeController extends Controller
         $return .= substr($content, -1*$suffix, $suffix);
 
         return $return;
+    }
+
+    public function generateMorrisJS()
+    {                
+        $template = file_get_contents(public_path("main/js/morrisjs/morris-template.js"));
+        $colorList = config('morris.color');
+        $data = array();
+        $major = array();
+        $color = array();
+        $i = 0;
+        foreach(MajorList::all() as $m){
+            array_push($major, $m['short_name']);
+            array_push($color, $colorList[$i++]);
+        }
+
+        foreach(ClassList::select('year_id')->groupBy('year_id')->get() as $class){            
+            $a = array('period' => $class->yearInfo['year']);
+            foreach(MajorList::all() as $m){
+                $classAtMajor = ClassList::where('year_id', $class['year_id'])->where('major_id', $m['id'])->get();
+                $alumni = 0;
+                foreach($classAtMajor as $c){
+                    $alumni += $c->countMember();                    
+                }
+                $a = array_merge($a, array($m['short_name'] => $alumni));
+            }
+            array_push($data, $a);
+        }
+        
+        $template = str_replace("%major", json_encode($major, true), $template);
+        $template = str_replace("%color", json_encode($color, true), $template);
+        $template = str_replace("%data", json_encode($data, true), $template);
+        file_put_contents(public_path("main/js/morrisjs/smkn1klaten.js"), $template);
+        return "Oke";
     }
 }

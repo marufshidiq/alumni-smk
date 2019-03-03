@@ -99,21 +99,17 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="actions graph-rp graph-rp-dl">
-                                    <p>Jumlah alumni terdaftar dan terverifikasi</p>
+                                    <p>Jumlah alumni terdaftar dan terverifikasi <br> (Diperbarui setiap 1 jam)</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <ul class="list-inline cus-product-sl-rp">                        
+                    <ul class="list-inline cus-product-sl-rp">
+                        @foreach(\App\MajorList::all() as $major)
                         <li>
-                            <h5><i class="fa fa-circle" style="color: #933EC5;"></i>TKJ</h5>
+                            <h5><i class="fa fa-circle" style="color: {{config('morris.color.'.$loop->index)}};"></i>{{$major['short_name']}}</h5>
                         </li>
-                        <li>
-                            <h5><i class="fa fa-circle" style="color: #006DF0;"></i>MM</h5>
-                        </li>
-                        <li>
-                            <h5><i class="fa fa-circle" style="color: #65b12d;"></i>TPPPP</h5>
-                        </li>
+                        @endforeach
                     </ul>
                     <div id="extra-area-chart" style="height: 356px;"></div>
                 </div>
@@ -130,7 +126,7 @@
 ============================================ -->
 <script src="/main/js/morrisjs/raphael-min.js"></script>
 <script src="/main/js/morrisjs/morris.js"></script>
-<script src="/main/js/morrisjs/morris-active.js"></script>
+<script src="/main/js/morrisjs/smkn1klaten.js"></script>
 <!-- morrisjs JS
 ============================================ -->
 @endsection
