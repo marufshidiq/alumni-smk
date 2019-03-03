@@ -35,8 +35,13 @@
 	                        <h1 class="hero-title mt-0 is-revealing">Sistem Informasi Alumni SMK N 1 Klaten</h1>
 	                        <p class="hero-paragraph is-revealing">Sistem ini digunakan untuk melakukan pendataan alumni sekaligus untuk saling mendapatkan informasi sesama alumni.</p>
 	                        <p class="hero-cta mb-0 is-revealing">
+                                @guest
 								<a class="button button-default button-shadow" href="{{route('front.new.get')}}">Registrasi</a>
                                 <a class="button button-primary button-shadow" href="{{route('front.login.get')}}">Login</a>
+                                @endguest
+                                @auth
+                                <a class="button button-primary button-shadow" href="{{route('dashboard')}}">Dashboard</a>
+                                @endauth
 							</p>
 						</div>
 						<div class="hero-illustration">
