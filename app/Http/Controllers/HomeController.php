@@ -56,6 +56,9 @@ class HomeController extends Controller
             $checklist['social'] = true;
         }
 
+        if(!file_exists(public_path("main/js/morrisjs/smkn1klaten.js"))){
+            $this->generateMorrisJS();
+        }
         $ts = filemtime(public_path("main/js/morrisjs/smkn1klaten.js"));
         $last = Carbon::createFromTimestamp($ts);        
         $diff = Carbon::now()->diffInMinutes($last);
