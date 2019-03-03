@@ -33,7 +33,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $user = Auth::user();
+
+        $checklist['email'] = false;
+        $checklist['phone'] = false;
+        $checklist['class'] = false;
+        $checklist['social'] = false;
+
+        if($user->emails->count() > 0){
+            $checklist['email'] = true;
+        }
+        if($user->contactNumbers->count() > 0){
+            $checklist['phone'] = true;
+        }
+        if($user->class->count() > 0){
+            $checklist['class'] = true;
+        }
+        if($user->socialMedia->count() > 0){
+            $checklist['social'] = true;
+        }
+
+        return view('dashboard', compact('checklist'));
     }
 
     public function profile()

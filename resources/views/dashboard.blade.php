@@ -23,7 +23,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label class="">
-                                                                <div class="iradio_square-green checked" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
+                                                                <div class="iradio_square-green @if($checklist['email'])checked @endif" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
                                                                 <i></i> Alamat email
                                                             </label>
                                                         </div>
@@ -33,7 +33,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label class="">
-                                                                <div class="iradio_square-green" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
+                                                                <div class="iradio_square-green @if($checklist['phone'])checked @endif" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
                                                                 <i></i> Kontak telefon
                                                             </label>
                                                         </div>
@@ -43,7 +43,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label class="">
-                                                                <div class="iradio_square-green" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
+                                                                <div class="iradio_square-green @if($checklist['class'])checked @endif" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
                                                                 <i></i> Tahun masuk
                                                             </label>
                                                         </div>
@@ -53,7 +53,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label class="">
-                                                                <div class="iradio_square-green" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
+                                                                <div class="iradio_square-green @if($checklist['class'])checked @endif" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
                                                                 <i></i> Jurusan
                                                             </label>
                                                         </div>
@@ -63,7 +63,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label class="">
-                                                                <div class="iradio_square-green" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
+                                                                <div class="iradio_square-green @if($checklist['class'])checked @endif" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
                                                                 <i></i> Kelas
                                                             </label>
                                                         </div>
@@ -73,7 +73,7 @@
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
                                                             <label class="">
-                                                                <div class="iradio_square-green" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
+                                                                <div class="iradio_square-green @if($checklist['social'])checked @endif" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
                                                                 <i></i> Media Sosial
                                                             </label>
                                                         </div>
