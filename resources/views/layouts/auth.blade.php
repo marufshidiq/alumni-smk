@@ -57,6 +57,17 @@
 	<script src="{{ asset('auth/vendor/countdowntime/countdowntime.js') }}"></script>
 <!--===============================================================================================-->
 	<script src="{{ asset('auth/js/main.js') }}"></script>
+	@if(env('APP_PHASE') == 'production')    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{env('G_ANALYTICS')}}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{env('G_ANALYTICS')}}');
+    </script>
+    @endif
 
 </body>
 </html>
