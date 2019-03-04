@@ -708,6 +708,15 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{env('G_ANALYTICS')}}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{env('G_ANALYTICS')}}');
+    </script>
     @endif
     @yield('js')    
 </body>
