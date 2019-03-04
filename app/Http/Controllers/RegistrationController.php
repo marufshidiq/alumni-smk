@@ -3,12 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Mail;
+use Auth;
 use App\PendingRegistration;
 use App\User;
 
 class RegistrationController extends Controller
 {
+    use AuthenticatesUsers;
+
+    protected $redirectTo = '/dashboard';
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
     public function proceedRegistration($token) {
         $pd = PendingRegistration::where('token', $token);
         $verify = $pd->count();
@@ -61,7 +72,7 @@ class RegistrationController extends Controller
         return view('auth.new');
     }
 
-    public function login() {
+    public function login() {        
         return view('auth.login');
     }
 }

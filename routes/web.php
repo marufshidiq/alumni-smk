@@ -32,6 +32,9 @@ Route::get('/login', function () {
 Route::get('/address', function () {
     return redirect()->route('profile');
 });
+Route::get('/home', function () {
+    return redirect()->route('dashboard');
+});
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/profile', 'HomeController@profile')->name('profile');
