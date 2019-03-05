@@ -49,7 +49,7 @@ class HomeController extends Controller
         if($user->contactNumbers->count() > 0){
             $checklist['phone'] = true;
         }
-        if($user->class->count() > 0){
+        if($user->class()->exists() > 0){
             $checklist['class'] = true;
         }
         if($user->socialMedia->count() > 0){
