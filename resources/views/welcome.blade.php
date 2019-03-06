@@ -141,7 +141,7 @@
 				<div class="container">
 					<div class="testimonials-inner section-inner">
 						<div class="testimonials-header text-center text-light">
-							<h2 class="section-title mt-0">Testimoni Alumni</h2>
+							<h2 class="section-title mt-0">Kesan dan Pesan Alumni</h2>
 						</div>
 						<div class="testimonials-wrap">
                             @foreach(\App\Testimoni::where('active', 1)->take(6)->get() as $testi)
