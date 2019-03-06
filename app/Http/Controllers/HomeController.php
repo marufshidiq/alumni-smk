@@ -39,11 +39,15 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
+        $checklist['avatar'] = false;
         $checklist['email'] = false;
         $checklist['phone'] = false;
         $checklist['class'] = false;
         $checklist['social'] = false;
 
+        if($user['photo']!="user.png"){
+            $checklist['avatar'] = true;
+        }
         if($user->emails->count() > 0){
             $checklist['email'] = true;
         }

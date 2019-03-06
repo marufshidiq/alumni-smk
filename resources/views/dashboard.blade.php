@@ -16,9 +16,19 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="basic-login-inner">                                        
-                                        <p>Mohon lengkapi informasi profil anda untuk dapat mengakses fitur-fitur yang tersedia</p>
+                                        <p>Mohon lengkapi informasi profil anda untuk mempermudah komunikasi antar alumni.</p>
                                         <form>
                                             <div class="form-group-inner">
+                                                <div class="row">                                                    
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="i-checks pull-left">
+                                                            <label class="">
+                                                                <div class="iradio_square-green @if($checklist['avatar'])checked @endif" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> 
+                                                                <i></i> Foto profil
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="row">                                                    
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div class="i-checks pull-left">
