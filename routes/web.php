@@ -63,5 +63,7 @@ Route::post('/public/major/add', 'PublicInfoController@majorAdd')->name('add.maj
 Route::get('/public/class/add', 'PublicInfoController@classAddView')->name('add.class.get');
 Route::post('/public/class/add', 'PublicInfoController@classAdd')->name('add.class');
 
-
 Route::post('/class/list', 'PublicInfoController@classList')->name('class.list');
+
+Route::get('/public/testimonial/add', 'PublicInfoController@testiAddView')->name('add.testi.get');
+Route::post('/public/testimonial/add', 'PublicInfoController@testiAdd')->name('add.testi');

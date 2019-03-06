@@ -97,4 +97,28 @@ class PublicInfoController extends Controller
 
         return redirect()->route('profile.edit');
     }
+
+    public function testiAddView()
+    {
+        return view('addtestimonial');
+    }
+
+    public function testiAdd(Request $request)
+    {
+        $user = Auth::user();
+        if($request->act == "add"){
+            $user->testimonial()->create([
+                'message' => $request->message
+            ]);
+        }
+        elseif($request->act == "edit") {
+            $user->testimonial()->update([
+                'message' => $request->message
+            ]);
+        }
+        elseif($request->act == "delete") {
+            $user->testimonial()->delete();
+        }
+        return redirect()->route('add.testi.get');
+    }
 }

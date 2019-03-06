@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\IndustryRecord');
     }
+
+    public function testimonial()
+    {
+        return $this->hasOne('App\Testimoni');
+    }
 }

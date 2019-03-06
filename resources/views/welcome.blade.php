@@ -144,18 +144,20 @@
 							<h2 class="section-title mt-0">Testimoni Alumni</h2>
 						</div>
 						<div class="testimonials-wrap">
+                            @foreach(\App\Testimoni::where('active', 1)->take(6)->get() as $testi)
 							<div class="testimonial text-sm is-revealing">
 								<div class="testimonial-inner">
 									<div class="testimonial-main">
 										<div class="testimonial-body">
-											<p>Pesan dan kesan alumni</p>
+											<p>{{$testi['message']}}</p>
 										</div>
 									</div>
 									<div class="testimonial-footer">
-										<div class="testimonial-name"><a href="#">@alumni1</a></div>
+										<div class="testimonial-name"><a href="#">{{$testi->user['name']}}</a></div>
 									</div>
 								</div>
-							</div>							
+							</div>
+                            @endforeach							
 						</div>
 					</div>
 				</div>
