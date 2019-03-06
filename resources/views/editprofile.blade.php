@@ -189,6 +189,7 @@
                             </div>
                         </div>
                         <br>
+                        <a class="btn btn-sm btn-success" href="{{ route('avatar.edit') }}"><i class="fa fa-user"></i> Ubah Foto Profil</a>
                         @if(Auth::user()->class()->count() == 0)
                         <a class="btn btn-sm btn-success" onclick="event.preventDefault();document.getElementById('choose-class').submit();"><i class="fa fa-users"></i> Pilih kelas dan angkatan</a>
                         @endif
