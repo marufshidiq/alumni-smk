@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Image;
 use Laravolt\Indonesia\Indonesia;
 use Illuminate\Support\Carbon;
 
@@ -414,6 +415,7 @@ class HomeController extends Controller
         $industryList = $user->industries->sortBy('start');
 
         $profile["name"] = $user['name'];
+        $profile["photo"] = $user['photo'];
         $profile["id"] = $user['id'];
         if($user->class()->count() == 1){
             $profile["class"] = $user->class->classDetails->majorInfo['short_name'] ."-". $user->class->classDetails['name'];
@@ -663,5 +665,42 @@ class HomeController extends Controller
         $template = str_replace("%data", json_encode($data, true), $template);
         file_put_contents(public_path("main/js/morrisjs/smkn1klaten.js"), $template);
         return "Oke";
+    }
+
+    public function avatarEdit()
+    {
+        return view('uploadavatar');
+    }
+
+    function avatarUpload(Request $request)
+    {
+        $this->validate($request, [
+            'avatar'  => 'required|image|mimes:jpg,jpeg,png,gif|max:2048'
+        ]);
+
+        $image = $request->file('avatar');
+        $user = Auth::user();
+        $id = $user->id;
+        $image_name = $id."-profile.".$image->getClientOriginalExtension();
+        $image->move(public_path('avatar/temp'), $image_name);
+        $temp_location = public_path('avatar/temp')."/".$image_name;        
+        $image = Image::make($temp_location);
+        $width = $image->width();
+        $height = $image->height();
+        $max = 500;
+        if($width>=$height){
+            $max = $height;
+        }
+        else {
+            $max = $width;
+        }
+        $image->fit($max);
+        $image->save(public_path('avatar')."/".$image_name);
+        unlink($temp_location);
+        $user->update([
+            'photo' => $image_name
+        ]);
+
+        return redirect()->back();        
     }
 }

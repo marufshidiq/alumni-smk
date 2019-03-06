@@ -48,6 +48,8 @@ Route::post('/school/save', 'HomeController@schoolSave')->name('school.save');
 Route::post('/industry/save', 'HomeController@industrySave')->name('industry.save');
 Route::get('/profile/edit', 'HomeController@profileEdit')->name('profile.edit');
 Route::post('/profile/edit', 'HomeController@profileEditProcess')->name('profile.edit.post');
+Route::get('/avatar/edit', 'HomeController@avatarEdit')->name('avatar.edit');
+Route::post('/avatar/edit', 'HomeController@avatarUpload')->name('avatar.upload');
 
 Route::get('/profile/privacy/{type}/{id}', 'HomeController@profilePrivacy')->name('profile.privacy');
 Route::get('/profile/delete/{type}/{id}', 'HomeController@profileDelete')->name('profile.delete');

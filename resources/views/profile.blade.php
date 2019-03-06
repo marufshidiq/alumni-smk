@@ -10,7 +10,7 @@
                 <a class="btn btn-sm btn-primary" href="{{ route('profile.edit') }}"><i class="fa fa-pencil"></i> Ubah Profil</a>
                 @endif
                     <div class="profile-img">
-                        <img src="/main/img/user.png" style="border-radius: 50%;" alt="" />
+                        <img src="/avatar/{{$profile['photo']}}" style="border-radius: 50%;" alt="" />
                     </div>
                     <div class="profile-details-hr">
                         <div class="row">
